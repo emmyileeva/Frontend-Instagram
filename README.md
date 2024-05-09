@@ -1,8 +1,8 @@
-# Instagram
+# Instagram Clone
 
 ## Description
 
-Instagram is a full-stack web application inspired by Instagram, allowing users to share photos and videos with their followers. Users can create accounts, upload posts, like and comment on posts, follow other users, and explore trending content. The project is built using the MERN stack (MongoDB, Express.js, React.js, Node.js) for the backend and frontend, with JSON Web Tokens (JWT) for user authentication.
+Instagram Clone is a full-stack web application inspired by Instagram, allowing users to share photos and videos with their followers. Users can create accounts, upload posts, like and comment on posts, follow other users, and explore trending content. The project is built using the MERN stack (MongoDB, Express.js, React.js, Node.js) for the backend and frontend, with JSON Web Tokens (JWT) for user authentication.
 
 ## Features
 
