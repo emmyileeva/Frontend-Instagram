@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import "./tailwind.css";
-import "./globals.css";
+import "../ src/globals.css";
 import Home from "./pages/Home";
 import SignIn from "./auth/SignIn";
 import SignUp from "./auth/SignUp";
