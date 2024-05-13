@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -12,6 +11,8 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { SignUpValidation } from "@/lib/validation";
+import { Link } from "react-router-dom";
+import { createUserAccount } from "@/lib/appwrite/api";
 
 const SignUp = () => {
   const form = useForm({
@@ -24,8 +25,9 @@ const SignUp = () => {
     },
   });
 
-  function onSubmit(values) {
-    console.log(values);
+  async function onSubmit(values) {
+    const newUser = await createUserAccount(values);
+    console.log(newUser);
   }
 
   return (
@@ -36,7 +38,7 @@ const SignUp = () => {
           Create A New Account
         </h2>
         <p className="text-light-3 small-medium md:base-regular mt-2 text-center">
-          To use Instagram enter your details
+          To use Instagram, please enter your details
         </p>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
@@ -94,8 +96,18 @@ const SignUp = () => {
               </FormItem>
             )}
           />
-
-          <Button type="submit">Submit</Button>
+          <Button type="submit" className="shad-button_primary">
+            Submit
+          </Button>
+          <p className="text-small-regular text-light-2 text-center">
+            Already have an account?
+            <Link
+              to="/sign-in"
+              className="text-primary-500 text-small-semibold ml-1"
+            >
+              Sign In
+            </Link>
+          </p>
         </form>
       </div>
     </Form>
