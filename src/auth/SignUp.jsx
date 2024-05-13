@@ -11,13 +11,18 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { SignUpValidation } from "@/lib/validation";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useToast } from "@/components/ui/use-toast";
-import { useCreateUserAccountMutation } from "@/lib/react-query/queries";
+import {
+  useCreateUserAccount,
+  useSignInAccount,
+} from "@/lib/react-query/queries";
+import { useUserContext } from "@/context/authcontext";
 
 const SignUp = () => {
   const { toast } = useToast();
-  const { mutateAsync: createUserAccount } = useCreateUserAccountMutation();
+  const { checkAuthUser } = useUserContext();
+  const navigate = useNavigate();
 
   const form = useForm({
     resolver: zodResolver(SignUpValidation),
@@ -29,40 +34,73 @@ const SignUp = () => {
     },
   });
 
-  async function onSubmit(values) {
-    const newUser = await createUserAccount(values);
-    if (!newUser) {
-      return toast({
-        title: "Error",
-        message: "Failed to create user account",
-        status: "error",
+  const { mutateAsync: createUserAccount } = useCreateUserAccount();
+  const { mutateAsync: signInAccount } = useSignInAccount();
+
+  const handleSignup = async (user) => {
+    try {
+      const newUser = await createUserAccount(user);
+
+      if (!newUser) {
+        toast({ title: "Sign up failed. Please try again." });
+        return;
+      }
+
+      const session = await signInAccount({
+        email: user.email,
+        password: user.password,
       });
-      const session = await signInAccount();
+      if (!session) {
+        toast({ title: "Something went wrong. Please login your account" });
+        navigate("/sign-in");
+        return;
+      }
+      const isLoggedIn = await checkAuthUser();
+
+      if (isLoggedIn) {
+        form.reset();
+        navigate("/");
+      } else {
+        toast({
+          title: "Success",
+          message: "User account created successfully",
+          status: "success",
+        });
+      }
+    } catch (error) {
+      console.log({ error });
     }
-  }
+  };
 
   return (
     <Form {...form}>
-      <div className="sm:w-420 flex-center flex-col">
-        <img src="/images/logo.jpg" alt="logo" />
-        <h2 className="h3-bold md:h2-bold pt-5 sm:pt-12 text-center">
+      <div className="max-w-sm mx-auto">
+        <img src="/images/logo.jpg" alt="logo" className="mx-auto" />
+        <h2 className="text-center font-bold text-xl mt-5">
           Create A New Account
         </h2>
-        <p className="text-light-3 small-medium md:base-regular mt-2 text-center">
+        <p className="text-center text-gray-600 mt-2">
           To use Instagram, please enter your details
         </p>
-        <form
-          onSubmit={form.handleSubmit(onSubmit)}
-          className="flex flex-col gap-5 w-full mt-4"
-        >
+        <form onSubmit={form.handleSubmit(handleSignup)} className="mt-4">
           <FormField
             control={form.control}
             name="name"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Name</FormLabel>
+                <FormLabel
+                  htmlFor="name"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Name
+                </FormLabel>
                 <FormControl>
-                  <Input type="text" className="shad-input" {...field} />
+                  <Input
+                    type="text"
+                    id="name"
+                    className="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -73,9 +111,19 @@ const SignUp = () => {
             name="username"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Username</FormLabel>
+                <FormLabel
+                  htmlFor="username"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Username
+                </FormLabel>
                 <FormControl>
-                  <Input type="text" className="shad-input" {...field} />
+                  <Input
+                    type="text"
+                    id="username"
+                    className="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -86,9 +134,19 @@ const SignUp = () => {
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Email</FormLabel>
+                <FormLabel
+                  htmlFor="email"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Email
+                </FormLabel>
                 <FormControl>
-                  <Input type="email" className="shad-input" {...field} />
+                  <Input
+                    type="email"
+                    id="email"
+                    className="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -99,23 +157,33 @@ const SignUp = () => {
             name="password"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Password</FormLabel>
+                <FormLabel
+                  htmlFor="password"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Password
+                </FormLabel>
                 <FormControl>
-                  <Input type="password" className="shad-input" {...field} />
+                  <Input
+                    type="password"
+                    id="password"
+                    className="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
-          <Button type="submit" className="shad-button_primary">
+          <Button
+            type="submit"
+            className="w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-500 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+          >
             Submit
           </Button>
-          <p className="text-small-regular text-light-2 text-center">
-            Already have an account?
-            <Link
-              to="/sign-in"
-              className="text-primary-500 text-small-semibold ml-1"
-            >
+          <p className="mt-4 text-center text-sm text-gray-600">
+            Already have an account?{" "}
+            <Link to="/sign-in" className="font-medium text-blue-600">
               Sign In
             </Link>
           </p>
