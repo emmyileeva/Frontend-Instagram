@@ -5,6 +5,7 @@ import Home from "./pages/Home";
 import SignIn from "./auth/SignIn";
 import SignUp from "./auth/SignUp";
 import AuthLayout from "./auth/AuthLayout";
+import { Toaster } from "@/components/ui/toaster";
 
 const App = () => {
   return (
@@ -16,6 +17,7 @@ const App = () => {
         </Route>
         <Route index element={<Home />} />
       </Routes>
+      <Toaster />
     </main>
   );
 };

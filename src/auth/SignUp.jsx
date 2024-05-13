@@ -12,9 +12,13 @@ import {
 import { Input } from "@/components/ui/input";
 import { SignUpValidation } from "@/lib/validation";
 import { Link } from "react-router-dom";
-import { createUserAccount } from "@/lib/appwrite/api";
+import { useToast } from "@/components/ui/use-toast";
+import { useCreateUserAccountMutation } from "@/lib/react-query/queries";
 
 const SignUp = () => {
+  const { toast } = useToast();
+  const { mutateAsync: createUserAccount } = useCreateUserAccountMutation();
+
   const form = useForm({
     resolver: zodResolver(SignUpValidation),
     defaultValues: {
@@ -27,7 +31,14 @@ const SignUp = () => {
 
   async function onSubmit(values) {
     const newUser = await createUserAccount(values);
-    console.log(newUser);
+    if (!newUser) {
+      return toast({
+        title: "Error",
+        message: "Failed to create user account",
+        status: "error",
+      });
+      const session = await signInAccount();
+    }
   }
 
   return (
