@@ -179,12 +179,12 @@ const SignUp = () => {
             type="submit"
             className="w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-500 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
           >
-            Submit
+            Sign up
           </Button>
           <p className="mt-4 text-center text-sm text-gray-600">
             Already have an account?{" "}
             <Link to="/sign-in" className="font-medium text-blue-600">
-              Sign In
+              Sign in
             </Link>
           </p>
         </form>

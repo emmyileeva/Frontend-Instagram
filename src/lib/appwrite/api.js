@@ -1,11 +1,8 @@
-import { ID } from "appwrite";
-import { account, appwrite, avatars, databases } from "./config";
-import { Query } from "@tanstack/react-query";
+import { account, databases, storage, avatars, appwrite } from "./config";
+import { ID, Query } from "appwrite";
 
 export async function createUserAccount(user) {
   try {
-    const avatarUrl = avatars.getInitials(user.name);
-
     const newAccount = await account.create(
       ID.unique(),
       user.email,
@@ -15,12 +12,14 @@ export async function createUserAccount(user) {
 
     if (!newAccount) throw new Error("Failed to create user account");
 
+    const avatarUrl = avatars.getInitials(user.name);
+
     const savedUser = await saveUserToDB({
       accountId: newAccount.$id,
       name: newAccount.name,
       email: newAccount.email,
-      imageUrl: avatarUrl,
       username: user.username,
+      imageUrl: avatarUrl,
     });
 
     console.log("User account created:", newAccount);
@@ -39,14 +38,7 @@ export async function saveUserToDB(user) {
       appwrite.databaseId,
       appwrite.userCollectionId,
       ID.unique(),
-      user,
-      {
-        accountId: user.accountId,
-        name: user.name,
-        email: user.email,
-        imageUrl: user.imageUrl,
-        username: user.username,
-      }
+      user
     );
 
     console.log("User saved to database:", newUser);

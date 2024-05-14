@@ -1,9 +1,8 @@
-import { useNavigate } from "react-router-dom";
 import { createContext, useContext, useEffect, useState } from "react";
-
+import { useNavigate } from "react-router-dom";
 import { getCurrentUser } from "@/lib/appwrite/api";
 
-export const INITIAL_USER = {
+const INITIAL_USER = {
   id: "",
   name: "",
   username: "",
@@ -12,15 +11,7 @@ export const INITIAL_USER = {
   bio: "",
 };
 
-const INITIAL_STATE = {
-  user: INITIAL_USER,
-  isAuthenticated: false,
-  setUser: () => {},
-  setIsAuthenticated: () => {},
-  checkAuthUser: async () => false,
-};
-
-const AuthContext = createContext(INITIAL_STATE);
+const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
@@ -52,12 +43,13 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const checkAuthentication = async () => {
       const isAuthenticated = await checkAuthUser();
-      //   if (!isAuthenticated) {
-      //     navigate("/sign-in");
-      //   }
+      // Navigate to sign-in if not authenticated
+      if (!isAuthenticated) {
+        navigate("/sign-in");
+      }
     };
     checkAuthentication();
-  }, []);
+  }, [navigate]);
 
   const value = {
     user,
@@ -70,5 +62,5 @@ export const AuthProvider = ({ children }) => {
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
 
-// eslint-disable-next-line react-refresh/only-export-components
 export const useUserContext = () => useContext(AuthContext);
+export { INITIAL_USER };
