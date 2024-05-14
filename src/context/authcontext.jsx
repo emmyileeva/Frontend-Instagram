@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getCurrentUser } from "@/lib/appwrite/api";
+import PropTypes from "prop-types";
 
 const INITIAL_USER = {
   id: "",
@@ -40,16 +41,16 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  useEffect(() => {
-    const checkAuthentication = async () => {
-      const isAuthenticated = await checkAuthUser();
-      // Navigate to sign-in if not authenticated
-      if (!isAuthenticated) {
-        navigate("/sign-in");
-      }
-    };
-    checkAuthentication();
-  }, [navigate]);
+  //   useEffect(() => {
+  //     const checkAuthentication = async () => {
+  //     //   const isAuthenticated = await checkAuthUser();
+  //     //   // Navigate to sign-in if not authenticated
+  //     //   if (!isAuthenticated) {
+  //     //     navigate("/sign-in");
+  //       }
+  //     };
+  //     checkAuthentication();
+  //   }, [navigate]);
 
   const value = {
     user,
@@ -60,6 +61,10 @@ export const AuthProvider = ({ children }) => {
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+};
+
+AuthProvider.propTypes = {
+  children: PropTypes.node.isRequired,
 };
 
 export const useUserContext = () => useContext(AuthContext);

@@ -1,6 +1,7 @@
 import { account, databases, storage, avatars, appwrite } from "./config";
 import { ID, Query } from "appwrite";
 
+// Create a new user account
 export async function createUserAccount(user) {
   try {
     const newAccount = await account.create(
@@ -32,6 +33,7 @@ export async function createUserAccount(user) {
   }
 }
 
+// Save user data to the database
 export async function saveUserToDB(user) {
   try {
     const newUser = await databases.createDocument(
@@ -49,9 +51,13 @@ export async function saveUserToDB(user) {
   }
 }
 
+// Sign in a user account
 export async function signInAccount(user) {
   try {
-    const session = await account.createSession(user.email, user.password);
+    const session = await account.createEmailPasswordSession(
+      user.email,
+      user.password
+    );
 
     console.log("User signed in:", session);
     return session;
@@ -61,6 +67,7 @@ export async function signInAccount(user) {
   }
 }
 
+// Get the current user
 export async function getCurrentUser() {
   try {
     const currentAccount = await account.get();
@@ -70,7 +77,7 @@ export async function getCurrentUser() {
     const currentUser = await databases.listDocuments(
       appwrite.databaseId,
       appwrite.userCollectionId,
-      [Query.equals("accountId", currentAccount.$id)]
+      [Query.equal("accountId", currentAccount.$id)]
     );
     if (!currentUser) throw new Error("No user data found");
 
