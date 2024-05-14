@@ -12,7 +12,7 @@ export const sidebarLinks = [
   {
     imgURL: "/icons/people.png",
     route: "/all-users",
-    label: "People",
+    label: "Discover People",
   },
   {
     imgURL: "/icons/saves.png",
@@ -22,7 +22,7 @@ export const sidebarLinks = [
   {
     imgURL: "/icons/create.png",
     route: "/create-post",
-    label: "Create Post",
+    label: "Create",
   },
 ];
 

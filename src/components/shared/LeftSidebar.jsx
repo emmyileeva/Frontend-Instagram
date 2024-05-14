@@ -50,11 +50,7 @@ const LeftSidebar = () => {
                   to={link.route}
                   className="flex items-center gap-4 p-2 rounded-lg hover:bg-gray-100"
                 >
-                  <img
-                    src={link.imgURL}
-                    alt={link.label}
-                    className={`h-6 w-6 ${isActive ? "filter invert" : ""}`}
-                  />
+                  <img src={link.imgURL} alt={link.label} className="h-6 w-6" />
                   <span className="font-medium">{link.label}</span>
                 </NavLink>
               </li>

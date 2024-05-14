@@ -1,22 +1,20 @@
+import { Outlet } from "react-router-dom";
 import Bottom from "@/components/shared/Bottom";
 import LeftSidebar from "@/components/shared/LeftSidebar";
 import Top from "@/components/shared/Top";
-import { Outlet } from "react-router-dom";
 
 const Layout = () => {
   return (
-    <div className="flex flex-col h-screen">
+    <div className="w-full md:flex pt-14">
+      {" "}
       <Top />
-
-      <div className="flex flex-1">
+      <div className="md:flex">
         <LeftSidebar />
-
-        <section className="flex-1">
+        <section className="flex flex-1 h-full">
           <Outlet />
         </section>
-
-        <Bottom />
       </div>
+      <Bottom />
     </div>
   );
 };

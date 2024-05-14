@@ -75,7 +75,7 @@ const SignUp = () => {
   return (
     <Form {...form}>
       <div className="max-w-sm mx-auto">
-        <img src="/images/logo.jpg" alt="logo" className="mx-auto" />
+        <img src="/images/logo.png" alt="logo" className="mx-auto" />
         <h2 className="text-center font-bold text-xl mt-5">
           Create A New Account
         </h2>
