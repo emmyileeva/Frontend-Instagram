@@ -87,3 +87,15 @@ export async function getCurrentUser() {
     throw error;
   }
 }
+
+export async function signOutAccount() {
+  try {
+    const session = await account.deleteSession("current");
+
+    console.log("User signed out:", session);
+    return session;
+  } catch (error) {
+    console.error("Error signing out user:", error);
+    throw error;
+  }
+}

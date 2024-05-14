@@ -1,17 +1,22 @@
-import Bottom from "@/shared/Bottom";
-import LeftSidebar from "@/shared/LeftSidebar";
-import Top from "@/shared/Top";
+import Bottom from "@/components/shared/Bottom";
+import LeftSidebar from "@/components/shared/LeftSidebar";
+import Top from "@/components/shared/Top";
 import { Outlet } from "react-router-dom";
 
 const Layout = () => {
   return (
-    <div className="w-full md:flex">
+    <div className="flex flex-col h-screen">
       <Top />
-      <LeftSidebar />
-      <section className="flex flex-1 h-full">
-        <Outlet />
-      </section>
-      <Bottom />
+
+      <div className="flex flex-1">
+        <LeftSidebar />
+
+        <section className="flex-1">
+          <Outlet />
+        </section>
+
+        <Bottom />
+      </div>
     </div>
   );
 };
