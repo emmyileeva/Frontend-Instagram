@@ -5,7 +5,7 @@ import Top from "@/components/shared/Top";
 
 const Layout = () => {
   return (
-    <div className="w-full md:flex pt-14">
+    <div className="w-full md:flex">
       {" "}
       <Top />
       <div className="md:flex">

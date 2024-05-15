@@ -16,7 +16,7 @@ const Top = () => {
   }, [isSuccess, navigate]);
 
   return (
-    <section className="bg-white shadow-sm fixed top-0 left-5 w-full z-10">
+    <section className="bg-white shadow-sm fixed top-0 left-5 w-full z-10 md:hidden">
       <div className="mx-auto flex justify-center items-center px-10 py-2">
         <Link to="/" className="flex items-center">
           <img
@@ -27,7 +27,7 @@ const Top = () => {
         </Link>
         <div className="ml-auto">
           <div className="flex items-center space-x-2">
-            <Link to={`/profile/${user.id}`} className="hidden md:block">
+            <Link to={`/profile/${user.id}`} className="md:block">
               <img
                 src={user.imageUrl || "/icons/profile.png"}
                 alt="profile"

@@ -19,8 +19,15 @@ const LeftSidebar = () => {
   };
 
   return (
-    <nav className="flex flex-col h-screen justify-between bg-white border-r border-gray-200 p-4 fixed w-64">
-      <div className="flex flex-col gap-8">
+    <nav className="hidden md:flex flex-col h-screen justify-between bg-white border-r border-gray-200 p-4 fixed w-64">
+      <div>
+        <Link to="/" className="flex items-center mb-8 px-10">
+          <img
+            src="/images/logo.png"
+            alt="logo"
+            className="w-20 h-auto md:w-28"
+          />
+        </Link>
         {user.email && (
           <Link
             to={`/profile/${user.id}`}
@@ -37,27 +44,27 @@ const LeftSidebar = () => {
             </div>
           </Link>
         )}
-
-        <ul className="flex flex-col gap-6 flex-grow">
-          {sidebarLinks.map((link) => {
-            const isActive = pathname === link.route;
-            return (
-              <li
-                key={link.label}
-                className={`${isActive ? "bg-gray-100" : ""} rounded-lg`}
-              >
-                <NavLink
-                  to={link.route}
-                  className="flex items-center gap-4 p-2 rounded-lg hover:bg-gray-100"
-                >
-                  <img src={link.imgURL} alt={link.label} className="h-6 w-6" />
-                  <span className="font-medium">{link.label}</span>
-                </NavLink>
-              </li>
-            );
-          })}
-        </ul>
       </div>
+
+      <ul className="flex flex-col gap-6 flex-grow">
+        {sidebarLinks.map((link) => {
+          const isActive = pathname === link.route;
+          return (
+            <li
+              key={link.label}
+              className={`${isActive ? "bg-gray-100" : ""} rounded-lg`}
+            >
+              <NavLink
+                to={link.route}
+                className="flex items-center gap-4 p-2 rounded-lg hover:bg-gray-100"
+              >
+                <img src={link.imgURL} alt={link.label} className="h-6 w-6" />
+                <span className="font-medium">{link.label}</span>
+              </NavLink>
+            </li>
+          );
+        })}
+      </ul>
 
       <div className="mb-16">
         <Button
