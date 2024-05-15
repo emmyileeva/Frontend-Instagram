@@ -11,7 +11,7 @@ export const sidebarLinks = [
   },
   {
     imgURL: "/icons/people.png",
-    route: "/all-users",
+    route: "/users",
     label: "Discover People",
   },
   {

@@ -7,6 +7,16 @@ import SignUp from "./auth/SignUp";
 import AuthLayout from "./auth/AuthLayout";
 import { Toaster } from "@/components/ui/toaster";
 import Layout from "./main/Layout";
+import {
+  CreatePost,
+  EditPost,
+  Explore,
+  PostDetails,
+  Profile,
+  Saved,
+  UpdateProfile,
+} from "./main/pages";
+import Users from "./main/pages/Users";
 
 const App = () => {
   return (
