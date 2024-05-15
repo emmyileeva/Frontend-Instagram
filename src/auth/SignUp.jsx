@@ -75,7 +75,11 @@ const SignUp = () => {
   return (
     <Form {...form}>
       <div className="max-w-sm mx-auto">
-        <img src="/images/logo.png" alt="logo" className="mx-auto" />
+        <img
+          src="/images/logo.png"
+          alt="logo"
+          className="mx-auto w-48 h-auto"
+        />
         <h2 className="text-center font-bold text-xl mt-5">
           Create A New Account
         </h2>
@@ -177,7 +181,7 @@ const SignUp = () => {
           />
           <Button
             type="submit"
-            className="w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-500 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+            className="w-full mt-6 py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-500 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
           >
             Sign up
           </Button>

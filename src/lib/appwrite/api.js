@@ -105,3 +105,39 @@ export async function signOutAccount() {
     };
   }
 }
+
+// Create a new post
+export async function createPost(post) {
+  try {
+    const newPost = await databases.createDocument(
+      appwrite.databaseId,
+      appwrite.postCollectionId,
+      ID.unique(),
+      post
+    );
+
+    console.log("Post created:", newPost);
+    return newPost;
+  } catch (error) {
+    console.error("Error creating post:", error);
+    throw error;
+  }
+}
+
+// Update a post
+export async function updatePost(post) {
+  try {
+    const updatedPost = await databases.updateDocument(
+      appwrite.databaseId,
+      appwrite.postCollectionId,
+      post.$id,
+      post
+    );
+
+    console.log("Post updated:", updatedPost);
+    return updatedPost;
+  } catch (error) {
+    console.error("Error updating post:", error);
+    throw error;
+  }
+}
