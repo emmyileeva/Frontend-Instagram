@@ -27,7 +27,7 @@ const LeftSidebar = () => {
             className="flex items-center gap-4 mb-8"
           >
             <img
-              src={user.imageUrl || "/icons/profile-placeholder.svg"}
+              src={user.imageUrl || "/icons/profile.png"}
               alt="profile"
               className="h-12 w-12 rounded-full"
             />
@@ -38,7 +38,7 @@ const LeftSidebar = () => {
           </Link>
         )}
 
-        <ul className="flex flex-col gap-6">
+        <ul className="flex flex-col gap-6 flex-grow">
           {sidebarLinks.map((link) => {
             const isActive = pathname === link.route;
             return (
@@ -59,14 +59,16 @@ const LeftSidebar = () => {
         </ul>
       </div>
 
-      <Button
-        variant="ghost"
-        className="flex items-center gap-2 mt-auto py-2 px-4 hover:bg-gray-100 rounded-lg"
-        onClick={handleSignOut}
-      >
-        <img src="/icons/logout.svg" alt="logout" className="h-6 w-6" />
-        <span className="font-medium">Logout</span>
-      </Button>
+      <div className="mb-16">
+        <Button
+          variant="ghost"
+          className="flex items-center gap-2 py-2 px-4 hover:bg-gray-100 rounded-lg"
+          onClick={handleSignOut}
+        >
+          <img src="/icons/logout.png" alt="logout" className="h-6 w-6" />
+          <span className="font-medium">Logout</span>
+        </Button>
+      </div>
     </nav>
   );
 };

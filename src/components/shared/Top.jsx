@@ -17,7 +17,7 @@ const Top = () => {
 
   return (
     <section className="bg-white shadow-sm fixed top-0 left-5 w-full z-10">
-      <div className="mx-auto flex justify-center items-center px-4 py-2">
+      <div className="mx-auto flex justify-center items-center px-10 py-2">
         <Link to="/" className="flex items-center">
           <img
             src="/images/logo.png"
@@ -29,7 +29,7 @@ const Top = () => {
           <div className="flex items-center space-x-2">
             <Link to={`/profile/${user.id}`} className="hidden md:block">
               <img
-                src={user.imageUrl || "/icons/profile-placeholder.svg"}
+                src={user.imageUrl || "/icons/profile.png"}
                 alt="profile"
                 className="h-8 w-8 rounded-full md:h-10 md:w-10"
               />
