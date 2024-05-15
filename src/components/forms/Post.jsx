@@ -67,11 +67,11 @@ const Post = ({ post, action }) => {
   };
 
   return (
-    <div className="flex flex-col flex-grow ml-0 md:ml-64 h-full">
+    <div className="flex flex-col flex-grow ml-64 h-full">
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(handleSubmit)}
-          className="flex flex-col gap-6 flex-grow p-4 overflow-y-auto mx-auto md:ml-0 md:mr-64"
+          className="flex flex-col gap-6 flex-grow p-4 overflow-y-auto ml-0 md:ml-64"
         >
           <FormField
             control={form.control}

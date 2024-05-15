@@ -5,6 +5,7 @@ import { CameraIcon } from "@heroicons/react/24/solid";
 
 const FileUploader = ({ fieldChange, mediaUrl }) => {
   const [files, setFiles] = useState([]);
+  const [uploadedImageUrl, setUploadedImageUrl] = useState(null);
 
   FileUploader.propTypes = {
     fieldChange: PropTypes.func.isRequired,
@@ -17,6 +18,12 @@ const FileUploader = ({ fieldChange, mediaUrl }) => {
       setFiles(acceptedFiles);
       // Call the fieldChange function to pass the dropped files to the parent component
       fieldChange(acceptedFiles);
+      // Read the uploaded image and set its URL for preview
+      const reader = new FileReader();
+      reader.onload = () => {
+        setUploadedImageUrl(reader.result);
+      };
+      reader.readAsDataURL(acceptedFiles[0]);
     },
     [fieldChange]
   );
@@ -39,15 +46,21 @@ const FileUploader = ({ fieldChange, mediaUrl }) => {
           </p>
         </>
       )}
-      {mediaUrl && (
+      {uploadedImageUrl && (
         <img
-          src={mediaUrl}
+          src={uploadedImageUrl}
           alt="Uploaded"
           className="mx-auto max-w-full h-auto mb-2 rounded-md"
         />
       )}
       {files.length > 0 && (
-        <p className="text-gray-500">Selected {files.length} files</p>
+        <div>
+          {files.map((file) => (
+            <p key={file.name} className="text-gray-500">
+              Selected: {file.name}
+            </p>
+          ))}
+        </div>
       )}
     </div>
   );
