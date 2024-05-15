@@ -18,6 +18,14 @@ const App = () => {
         </Route>
         <Route element={<Layout />}>
           <Route index element={<Home />} />
+          <Route path="/explore" element={<Explore />} />
+          <Route path="/saved" element={<Saved />} />
+          <Route path="/users" element={<Users />} />
+          <Route path="/create-post" element={<CreatePost />} />
+          <Route path="/update-post/:id" element={<EditPost />} />
+          <Route path="/posts/:id" element={<PostDetails />} />
+          <Route path="/profile/:id/*" element={<Profile />} />
+          <Route path="/update/:id" element={<UpdateProfile />} />
         </Route>
       </Routes>
       <Toaster />
