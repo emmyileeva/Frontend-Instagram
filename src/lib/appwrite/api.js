@@ -271,3 +271,23 @@ export async function deleteSavedPost(savedRecordId) {
     console.log(error);
   }
 }
+
+// get post by id
+export async function getPostById(postId) {
+  if (!postId) throw Error("postId is required");
+
+  try {
+    const post = await databases.getDocument(
+      appwrite.databaseId,
+      appwrite.postCollectionId,
+      postId
+    );
+
+    if (!post) throw Error("Post not found");
+
+    return post;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}

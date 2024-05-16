@@ -9,6 +9,7 @@ import {
   savePost,
   deleteSavedPost,
   getCurrentUser,
+  getPostById,
 } from "@/lib/appwrite/api";
 
 const QUERY_KEYS = {
@@ -116,5 +117,13 @@ export const useGetCurrentUser = () => {
   return useQuery({
     queryKey: [QUERY_KEYS.GET_CURRENT_USER],
     queryFn: getCurrentUser,
+  });
+};
+
+export const useGetPostById = (postId) => {
+  return useQuery({
+    queryKey: [QUERY_KEYS.GET_POST_BY_ID, postId],
+    queryFn: () => getPostById(postId),
+    enabled: !!postId,
   });
 };
