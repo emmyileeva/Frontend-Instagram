@@ -4,7 +4,7 @@ import { useGetPostById } from "@/lib/react-query/queries";
 
 const EditPost = () => {
   const { id } = useParams();
-  const { data: post, isLoading } = useGetPostById(id);
+  const { data: post } = useGetPostById(id);
 
   return (
     <div className="flex flex-1">
@@ -20,7 +20,7 @@ const EditPost = () => {
           <h2 className="h3-bold md:h2-bold text-left w-full">Edit Post</h2>
         </div>
 
-        {!isLoading && <Post action="Update" post={post} />}
+        {<Post action="Update" post={post} />}
       </div>
     </div>
   );
