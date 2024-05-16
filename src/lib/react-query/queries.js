@@ -10,6 +10,8 @@ import {
   deleteSavedPost,
   getCurrentUser,
   getPostById,
+  updatePost,
+  deletePost,
 } from "@/lib/appwrite/api";
 
 const QUERY_KEYS = {
@@ -125,5 +127,29 @@ export const useGetPostById = (postId) => {
     queryKey: [QUERY_KEYS.GET_POST_BY_ID, postId],
     queryFn: () => getPostById(postId),
     enabled: !!postId,
+  });
+};
+
+export const useUpdatePost = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (post) => updatePost(post),
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({
+        queryKey: [QUERY_KEYS.GET_POST_BY_ID, data && data.$id],
+      });
+    },
+  });
+};
+
+export const useDeletePost = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: ({ postId, imageId }) => deletePost(postId, imageId),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: [QUERY_KEYS.GET_RECENT_POSTS],
+      });
+    },
   });
 };
