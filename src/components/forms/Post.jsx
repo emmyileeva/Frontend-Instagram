@@ -35,6 +35,7 @@ const Post = ({ post, action }) => {
   const { mutateAsync: updatePost } = useUpdatePost();
 
   const handleSubmit = async (value) => {
+    console.log("Submitting form with values:", value);
     // ACTION = UPDATE
     if (post && action === "Update") {
       const updatedPost = await updatePost({
@@ -48,8 +49,9 @@ const Post = ({ post, action }) => {
         toast({
           title: `${action} post failed. Please try again.`,
         });
+      } else {
+        navigate(`/posts/${post.$id}`);
       }
-      return navigate(`/posts/${post.$id}`);
     }
 
     // ACTION = CREATE
@@ -62,8 +64,9 @@ const Post = ({ post, action }) => {
       toast({
         title: `${action} post failed. Please try again.`,
       });
+    } else {
+      navigate("/");
     }
-    navigate("/");
   };
 
   return (
