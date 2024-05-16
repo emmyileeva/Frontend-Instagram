@@ -292,6 +292,7 @@ export async function getPostById(postId) {
   }
 }
 
+// update post
 export async function updatePost(post) {
   const hasFileToUpdate = post.file.length > 0;
 
@@ -345,6 +346,27 @@ export async function updatePost(post) {
     }
 
     return updatedPost;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+// delete post
+export async function deletePost(postId, imageId) {
+  if (!postId || !imageId) return;
+
+  try {
+    const statusCode = await databases.deleteDocument(
+      appwrite.databaseId,
+      appwrite.postCollectionId,
+      postId
+    );
+
+    if (!statusCode) throw Error;
+
+    await deleteFile(imageId);
+
+    return { status: "Ok" };
   } catch (error) {
     console.log(error);
   }
