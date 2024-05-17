@@ -5,7 +5,7 @@ const Bottom = () => {
   const { pathname } = useLocation();
 
   return (
-    <section className="bottom-bar fixed bottom-0 left-0 right-0 z-50 bg-white shadow-md md:hidden">
+    <section className="bottom-bar fixed bottom-0 left-0 right-0 z-50 bg-white shadow-md md:hidden w-full">
       <div className="flex justify-around py-3">
         {bottomLinks.map((link) => {
           const isActive = pathname === link.route;

@@ -5,12 +5,11 @@ import Top from "@/components/shared/Top";
 
 const Layout = () => {
   return (
-    <div className="w-full md:flex">
-      {" "}
+    <div className="flex flex-col md:flex-row h-screen w-full">
       <Top />
-      <div className="flex">
+      <div className="flex flex-col md:flex-row flex-1 overflow-auto">
         <LeftSidebar />
-        <section className="flex flex-1 h-full">
+        <section className="flex-1">
           <Outlet />
         </section>
       </div>
