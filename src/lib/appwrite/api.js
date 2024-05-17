@@ -371,3 +371,43 @@ export async function deletePost(postId, imageId) {
     console.log(error);
   }
 }
+
+// get infinite posts
+async function getInfinitePosts({ pageParam }) {
+  const queries = [Query.orderDesc("$updatedAt"), Query.limit(9)];
+
+  if (pageParam) {
+    queries.push(Query.cursorAfter(pageParam.toString()));
+  }
+
+  try {
+    const posts = await databases.listDocuments(
+      appwrite.databaseId,
+      appwrite.postCollectionId,
+      queries
+    );
+
+    if (!posts) throw Error;
+
+    return posts;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+// search posts
+async function searchPosts(searchTerm) {
+  try {
+    const posts = await databases.listDocuments(
+      appwrite.databaseId,
+      appwrite.postCollectionId,
+      [Query.search("caption", searchTerm)]
+    );
+
+    if (!posts) throw Error;
+
+    return posts;
+  } catch (error) {
+    console.log(error);
+  }
+}

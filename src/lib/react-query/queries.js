@@ -1,4 +1,9 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import {
+  useInfiniteQuery,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from "@tanstack/react-query";
 import {
   createUserAccount,
   signInAccount,
@@ -12,6 +17,8 @@ import {
   getPostById,
   updatePost,
   deletePost,
+  getInfinitePosts,
+  searchPosts,
 } from "@/lib/appwrite/api";
 
 const QUERY_KEYS = {
@@ -19,6 +26,8 @@ const QUERY_KEYS = {
   GET_POST_BY_ID: "get_post_by_id",
   GET_POSTS: "get_posts",
   GET_CURRENT_USER: "get_current_user",
+  GET_INFINITE_POSTS: "get_infinite_posts",
+  SEARCH_POSTS: "search_posts",
 };
 
 export const useCreateUserAccount = () => {
@@ -151,5 +160,27 @@ export const useDeletePost = () => {
         queryKey: [QUERY_KEYS.GET_RECENT_POSTS],
       });
     },
+  });
+};
+
+export const useGetPosts = () => {
+  return useInfiniteQuery({
+    queryKey: [QUERY_KEYS.GET_INFINITE_POSTS],
+    queryFn: getInfinitePosts,
+    getNextPageParam: (lastPage) => {
+      if (lastPage && lastPage.documents.length === 0) {
+        return null;
+      }
+      const lastId = lastPage.documents[lastPage.documents.length - 1].$id;
+      return lastId;
+    },
+  });
+};
+
+export const useSearchPosts = (searchTerm) => {
+  return useQuery({
+    queryKey: [QUERY_KEYS.SEARCH_POSTS, searchTerm],
+    queryFn: () => searchPosts(searchTerm),
+    enabled: !!searchTerm,
   });
 };

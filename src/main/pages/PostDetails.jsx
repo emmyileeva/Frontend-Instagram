@@ -37,7 +37,7 @@ const PostDetails = () => {
           variant="ghost"
           className="flex items-center space-x-2"
         >
-          <img src={"/assets/icons/back.svg"} alt="back" className="w-5 h-5" />
+          <img src={"/icons/back.png"} alt="back" className="w-5 h-5" />
           <p className="text-sm font-medium">Back</p>
         </Button>
       </div>
@@ -56,10 +56,7 @@ const PostDetails = () => {
               className="flex items-center space-x-3"
             >
               <img
-                src={
-                  post?.creator.imageUrl ||
-                  "/assets/icons/profile-placeholder.svg"
-                }
+                src={post?.creator.imageUrl || "/icons/profile.png"}
                 alt="creator"
                 className="w-10 h-10 rounded-full"
               />
@@ -74,15 +71,11 @@ const PostDetails = () => {
             {user.id === post?.creator.$id && (
               <div className="space-x-2">
                 <Link to={`/update-post/${post?.$id}`}>
-                  <img
-                    src={"/assets/icons/edit.svg"}
-                    alt="edit"
-                    className="w-5 h-5"
-                  />
+                  <img src={"/icons/edit.png"} alt="edit" className="w-5 h-5" />
                 </Link>
                 <Button onClick={handleDeletePost} variant="ghost">
                   <img
-                    src={"/assets/icons/delete.svg"}
+                    src={"/icons/delete.png"}
                     alt="delete"
                     className="w-5 h-5"
                   />
