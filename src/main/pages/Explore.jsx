@@ -6,7 +6,7 @@ import useDebounce from "@/hooks/useDebounce";
 import { GridPostList, SearchResults } from "@/components/shared";
 import { useGetPosts, useSearchPosts } from "@/lib/react-query/queries";
 
-const SearchResult = ({ isSearchFetching, searchedPosts }) => {
+const SearchResults = ({ isSearchFetching, searchedPosts }) => {
   if (isSearchFetching) {
     return null;
   } else if (searchedPosts && searchedPosts.documents.length > 0) {
