@@ -30,7 +30,7 @@ const Explore = () => {
     posts.pages.every((item) => item.documents.length === 0);
 
   return (
-    <div className="flex flex-col items-center bg-gray-100 min-h-screen md:w-3/4 md:ml-96">
+    <div className="flex flex-col items-center bg-gray-100 min-h-screen md:ml-64">
       <div className="max-w-5xl w-full">
         <div className="py-4">
           <h2 className="text-2xl font-semibold">Search Posts</h2>
