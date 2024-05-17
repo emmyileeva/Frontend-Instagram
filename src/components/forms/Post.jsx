@@ -73,7 +73,7 @@ const Post = ({ post, action }) => {
     <div className="bg-gray-100 min-h-screen w-full">
       <div className="flex flex-col h-screen justify-start items-center pt-16 md:pt-8">
         <div className="flex items-center">
-          <img src="/icons/create.png" width={36} height={36} alt="save" />
+          <img src="/icons/create.png" width={36} height={36} alt="create" />
           <h2 className="text-2xl md:text-3xl font-bold ml-4 text-gray-800">
             Create a post
           </h2>
