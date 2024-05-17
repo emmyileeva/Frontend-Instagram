@@ -70,85 +70,87 @@ const Post = ({ post, action }) => {
   };
 
   return (
-    <div className="flex flex-col flex-grow ml-64 h-full">
-      <Form {...form}>
-        <form
-          onSubmit={form.handleSubmit(handleSubmit)}
-          className="flex flex-col gap-6 flex-grow p-4 overflow-y-auto ml-0 md:ml-64"
-        >
-          <FormField
-            control={form.control}
-            name="caption"
-            render={({ field }) => (
-              <FormItem>
-                <Textarea
-                  className="border rounded-md p-2 w-full"
-                  placeholder="Write a caption..."
-                  rows={4}
-                  {...field}
-                />
-              </FormItem>
-            )}
-          />
+    <div className="bg-gray-100 min-h-screen w-full">
+      <div className="flex flex-col h-screen justify-start items-center pt-16 md:pt-8">
+        <Form {...form}>
+          <form
+            onSubmit={form.handleSubmit(handleSubmit)}
+            className="flex flex-col gap-6 w-full max-w-2xl md:max-w-4xl p-4 md:p-8 mx-auto"
+          >
+            <FormField
+              control={form.control}
+              name="caption"
+              render={({ field }) => (
+                <FormItem>
+                  <Textarea
+                    className="border rounded-md p-2 w-full"
+                    placeholder="Write a caption..."
+                    rows={4}
+                    {...field}
+                  />
+                </FormItem>
+              )}
+            />
 
-          <FormField
-            control={form.control}
-            name="file"
-            render={({ field }) => (
-              <FormItem>
-                <FileUploader
-                  fieldChange={field.onChange}
-                  mediaUrl={post?.imageUrl}
-                />
-              </FormItem>
-            )}
-          />
+            <FormField
+              control={form.control}
+              name="file"
+              render={({ field }) => (
+                <FormItem>
+                  <FileUploader
+                    fieldChange={field.onChange}
+                    mediaUrl={post?.imageUrl}
+                  />
+                </FormItem>
+              )}
+            />
 
-          <FormField
-            control={form.control}
-            name="location"
-            render={({ field }) => (
-              <FormItem>
-                <Input
-                  className="border rounded-md p-2 w-full"
-                  placeholder="Location"
-                  {...field}
-                />
-              </FormItem>
-            )}
-          />
+            <FormField
+              control={form.control}
+              name="location"
+              render={({ field }) => (
+                <FormItem>
+                  <Input
+                    className="border rounded-md p-2 w-full"
+                    placeholder="Location"
+                    {...field}
+                  />
+                </FormItem>
+              )}
+            />
 
-          <FormField
-            control={form.control}
-            name="tags"
-            render={({ field }) => (
-              <FormItem>
-                <Input
-                  className="border rounded-md p-2 w-full"
-                  placeholder="Add tags (separated by commas)"
-                  {...field}
-                />
-              </FormItem>
-            )}
-          />
+            <FormField
+              control={form.control}
+              name="tags"
+              render={({ field }) => (
+                <FormItem>
+                  <Input
+                    className="border rounded-md p-2 w-full"
+                    placeholder="Add tags (separated by commas)"
+                    {...field}
+                  />
+                </FormItem>
+              )}
+            />
 
-          <div className="flex justify-end">
-            <Button
-              type="button"
-              className="bg-blue-500 hover:bg-blue-600 text-white mr-4"
-              onClick={() => navigate(-1)}
-            >
-              Cancel
-            </Button>
-            <Button
-              type="submit"
-              className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-md"
-            >
-              {`${action} Post`}
-            </Button>
-          </div>
-        </form>
-      </Form>
+            <div className="flex justify-end">
+              <Button
+                type="button"
+                className="bg-blue-500 hover:bg-blue-600 text-white mr-4"
+                onClick={() => navigate(-1)}
+              >
+                Cancel
+              </Button>
+              <Button
+                type="submit"
+                className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-md"
+              >
+                {`${action} Post`}
+              </Button>
+            </div>
+          </form>
+        </Form>
+      </div>
     </div>
   );
 };
