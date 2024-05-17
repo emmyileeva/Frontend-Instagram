@@ -1,4 +1,5 @@
-import { PostCard, UserCard } from "@/components/shared";
+import PostCard from "@/components/shared/PostCard";
+import UserCard from "@/components/shared/UserCard";
 import { useGetRecentPosts, useGetUsers } from "@/lib/react-query/queries";
 
 const Home = () => {

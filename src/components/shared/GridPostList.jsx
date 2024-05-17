@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
-import { PostStats } from "@/components/shared";
-import { useUserContext } from "@/context/AuthContext";
 import PropTypes from "prop-types";
+import PostStats from "./PostStats";
+import { useUserContext } from "@/context/authcontext";
 
 const GridPostList = ({ posts, showUser = true, showStats = true }) => {
   const { user } = useUserContext();

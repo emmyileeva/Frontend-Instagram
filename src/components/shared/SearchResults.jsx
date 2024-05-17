@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { GridPostList } from "@/components/shared";
+import GridPostList from "./GridPostList";
 
 const SearchResults = ({ isSearchFetching, searchedPosts }) => {
   if (isSearchFetching) {

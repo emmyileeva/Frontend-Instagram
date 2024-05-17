@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
-import { useUserContext } from "@/context/AuthContext";
-import getTimeAgo from "@/lib/utils/getTimeAgo";
 import PostStats from "./PostStats";
+import { useUserContext } from "@/context/authcontext";
+import getTimeAgo from "@/lib/utils";
 
 const PostCard = ({ post }) => {
   const { user } = useUserContext();
