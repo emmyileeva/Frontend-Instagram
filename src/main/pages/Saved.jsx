@@ -15,7 +15,7 @@ const Saved = () => {
 
   return (
     <div className="saved-container flex flex-col items-center bg-gray-100 min-h-screen p-4 md:p-8">
-      <div className="flex items-center gap-2 w-full max-w-5xl mb-6">
+      <div className="flex items-center justify-center gap-2 w-full max-w-5xl mb-6">
         <img src="/icons/save.png" width={36} height={36} alt="save" />
         <h2 className="text-2xl md:text-3xl font-bold text-gray-800">
           Saved Posts
