@@ -19,6 +19,8 @@ import {
   deletePost,
   getInfinitePosts,
   searchPosts,
+  getUsers,
+  getUserPosts,
 } from "@/lib/appwrite/api";
 
 const QUERY_KEYS = {
@@ -28,6 +30,8 @@ const QUERY_KEYS = {
   GET_CURRENT_USER: "get_current_user",
   GET_INFINITE_POSTS: "get_infinite_posts",
   SEARCH_POSTS: "search_posts",
+  GET_USERS: "get_users",
+  GET_USER_POSTS: "get_user_posts",
 };
 
 export const useCreateUserAccount = () => {
@@ -182,5 +186,20 @@ export const useSearchPosts = (searchTerm) => {
     queryKey: [QUERY_KEYS.SEARCH_POSTS, searchTerm],
     queryFn: () => searchPosts(searchTerm),
     enabled: !!searchTerm,
+  });
+};
+
+export const useGetUsers = (limit) => {
+  return useQuery({
+    queryKey: [QUERY_KEYS.GET_USERS],
+    queryFn: () => getUsers(limit),
+  });
+};
+
+export const useGetUserPosts = (userId) => {
+  return useQuery({
+    queryKey: [QUERY_KEYS.GET_USER_POSTS, userId],
+    queryFn: () => getUserPosts(userId),
+    enabled: !!userId,
   });
 };

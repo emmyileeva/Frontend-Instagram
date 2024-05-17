@@ -1,15 +1,10 @@
 import { useParams, Link, useNavigate } from "react-router-dom";
-
-import {
-  useGetPostById,
-  useGetUserPosts,
-  useDeletePost,
-} from "@/lib/react-query/queries";
-import { multiFormatDateString } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import PostStats from "@/components/shared/PostStats";
 import GridPostList from "@/components/shared/GridPostList";
 import { useUserContext } from "@/context/authcontext";
+import getTimeAgo from "@/lib/utils";
+import { useDeletePost, useGetPostById } from "@/lib/react-query/queries";
 
 const PostDetails = () => {
   const navigate = useNavigate();
@@ -63,7 +58,7 @@ const PostDetails = () => {
               <div>
                 <p className="font-semibold text-sm">{post?.creator.name}</p>
                 <p className="text-xs text-gray-500">
-                  {multiFormatDateString(post?.$createdAt)} • {post?.location}
+                  {getTimeAgo(post?.$createdAt)} • {post?.location}
                 </p>
               </div>
             </Link>

@@ -3,8 +3,10 @@ import UserCard from "@/components/shared/UserCard";
 import { useGetRecentPosts, useGetUsers } from "@/lib/react-query/queries";
 
 const Home = () => {
-  const { data: posts, isError: isErrorPosts } = useGetRecentPosts();
-  const { data: creators, isError: isErrorCreators } = useGetUsers(10);
+  const { data, isError: isErrorPosts } = useGetRecentPosts();
+  const posts = data?.posts;
+  const { data: creatorsData, isError: isErrorCreators } = useGetUsers(10);
+  const creators = creatorsData?.users;
 
   if (isErrorPosts || isErrorCreators) {
     return (

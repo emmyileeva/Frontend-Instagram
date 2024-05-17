@@ -410,3 +410,45 @@ export async function searchPosts(searchTerm) {
     console.log(error);
   }
 }
+
+// get users
+export async function getUsers(limit) {
+  const queries = [Query.orderDesc("$createdAt")];
+
+  if (limit) {
+    queries.push(Query.limit(limit));
+  }
+
+  try {
+    const users = await databases.listDocuments(
+      appwrite.databaseId,
+      appwrite.userCollectionId,
+      queries
+    );
+
+    if (!users) throw Error;
+
+    return users;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+// get user posts
+export async function getUserPosts(userId) {
+  if (!userId) return;
+
+  try {
+    const post = await databases.listDocuments(
+      appwrite.databaseId,
+      appwrite.postCollectionId,
+      [Query.equal("creator", userId), Query.orderDesc("$createdAt")]
+    );
+
+    if (!post) throw new Error("Failed to fetch user posts");
+
+    return post;
+  } catch (error) {
+    console.error(error);
+  }
+}
