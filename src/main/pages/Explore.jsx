@@ -3,20 +3,9 @@ import { useInView } from "react-intersection-observer";
 
 import { Input } from "@/components/ui";
 import useDebounce from "@/hooks/useDebounce";
-import { GridPostList, SearchResults } from "@/components/shared";
+import { GridPostList } from "@/components/shared";
 import { useGetPosts, useSearchPosts } from "@/lib/react-query/queries";
-
-const SearchResults = ({ isSearchFetching, searchedPosts }) => {
-  if (isSearchFetching) {
-    return null;
-  } else if (searchedPosts && searchedPosts.documents.length > 0) {
-    return <GridPostList posts={searchedPosts.documents} />;
-  } else {
-    return (
-      <p className="text-light-4 mt-10 text-center w-full">No results found</p>
-    );
-  }
-};
+import SearchResults from "@/components/shared/SearchResults";
 
 const Explore = () => {
   const { ref, inView } = useInView();
@@ -31,7 +20,7 @@ const Explore = () => {
     if (inView && !searchValue) {
       fetchNextPage();
     }
-  }, [inView, searchValue]);
+  }, [inView, searchValue, fetchNextPage]);
 
   if (!posts) return null;
 
