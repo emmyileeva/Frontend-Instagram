@@ -16,6 +16,7 @@ const Post = ({ post, action }) => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const { user } = useUserContext();
+
   const form = useForm({
     resolver: zodResolver(PostValidation),
     defaultValues: {
@@ -35,37 +36,41 @@ const Post = ({ post, action }) => {
   const { mutateAsync: updatePost } = useUpdatePost();
 
   const handleSubmit = async (value) => {
-    console.log("Submitting form with values:", value);
-    // ACTION = UPDATE
-    if (post && action === "Update") {
-      const updatedPost = await updatePost({
-        ...value,
-        postId: post.$id,
-        imageId: post.imageId,
-        imageUrl: post.imageUrl,
-      });
+    console.log("Form Submitted", value); // Log to check if handleSubmit is called
 
-      if (!updatedPost) {
-        toast({
-          title: `${action} post failed. Please try again.`,
+    try {
+      if (post && action === "Update") {
+        const updatedPost = await updatePost({
+          ...value,
+          postId: post.$id,
+          imageId: post.imageId,
+          imageUrl: post.imageUrl,
         });
+
+        if (!updatedPost) {
+          toast({
+            title: `${action} post failed. Please try again.`,
+          });
+        } else {
+          navigate(`/posts/${post.$id}`);
+          return; // return here to prevent the execution of the "Create" action
+        }
       } else {
-        navigate(`/posts/${post.$id}`);
+        const newPost = await createPost({
+          ...value,
+          userId: user.id,
+        });
+
+        if (!newPost) {
+          toast({
+            title: `${action} post failed. Please try again.`,
+          });
+        } else {
+          navigate("/");
+        }
       }
-    }
-
-    // ACTION = CREATE
-    const newPost = await createPost({
-      ...value,
-      userId: user.id,
-    });
-
-    if (!newPost) {
-      toast({
-        title: `${action} post failed. Please try again.`,
-      });
-    } else {
-      navigate("/");
+    } catch (error) {
+      console.error("Error in handleSubmit:", error); // Log errors
     }
   };
 
@@ -80,7 +85,11 @@ const Post = ({ post, action }) => {
         </div>
         <Form {...form}>
           <form
-            onSubmit={form.handleSubmit(handleSubmit)}
+            onSubmit={(e) => {
+              e.preventDefault();
+              console.log("Form submitted");
+              form.handleSubmit(handleSubmit)(e);
+            }}
             className="flex flex-col gap-6 w-full max-w-2xl md:max-w-4xl p-4 md:p-8 mx-auto"
           >
             <FormField
@@ -104,7 +113,9 @@ const Post = ({ post, action }) => {
               render={({ field }) => (
                 <FormItem>
                   <FileUploader
-                    fieldChange={field.onChange}
+                    fieldChange={(files) => {
+                      field.onChange(files);
+                    }}
                     mediaUrl={post?.imageUrl}
                   />
                 </FormItem>

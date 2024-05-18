@@ -29,11 +29,15 @@ export const PostValidation = z.object({
     .min(4, { message: "Location must be at least 4 characters long" }),
   tags: z
     .string()
-    .min(4, { message: "Tags must be at least 4 characters long" }),
-  file: z.custom((value) => {
-    if (value === null) {
-      return "Please select an image";
-    }
-    return undefined;
-  }),
+    .min(4, { message: "Tags must be at least 4 characters long" })
+    .refine(
+      (value) => {
+        const tags = value.split(",");
+        return tags.every((tag) => tag.trim().length >= 2);
+      },
+      { message: "Each tag must be at least 2 characters long" }
+    ),
+  file: z
+    .array(z.instanceof(File))
+    .nonempty({ message: "Please select at least one image" }),
 });

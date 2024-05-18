@@ -4,7 +4,11 @@ import PostStats from "@/components/shared/PostStats";
 import GridPostList from "@/components/shared/GridPostList";
 import { useUserContext } from "@/context/authcontext";
 import getTimeAgo from "@/lib/utils";
-import { useDeletePost, useGetPostById } from "@/lib/react-query/queries";
+import {
+  useDeletePost,
+  useGetPostById,
+  useGetUserPosts,
+} from "@/lib/react-query/queries";
 
 const PostDetails = () => {
   const navigate = useNavigate();

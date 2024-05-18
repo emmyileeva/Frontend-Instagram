@@ -109,16 +109,25 @@ export async function signOutAccount() {
 // Create a new post
 export async function createPost(post) {
   try {
+    console.log("Uploading file:", post.file[0]);
+
     // Upload file to appwrite storage
     const uploadedFile = await uploadFile(post.file[0]);
 
-    if (!uploadedFile) throw Error;
+    console.log("Uploaded file:", uploadedFile);
 
-    // Get file url
+    if (!uploadedFile) {
+      throw new Error("Failed to upload file");
+    }
+
+    // Get file URL
     const fileUrl = getFilePreview(uploadedFile.$id);
+
+    console.log("File URL:", fileUrl);
+
     if (!fileUrl) {
       await deleteFile(uploadedFile.$id);
-      throw Error;
+      throw new Error("Failed to get file URL");
     }
 
     // Convert tags into array
@@ -139,49 +148,46 @@ export async function createPost(post) {
       }
     );
 
+    console.log("New post:", newPost);
+
     if (!newPost) {
       await deleteFile(uploadedFile.$id);
-      throw Error;
+      throw new Error("Failed to create post");
     }
 
     return newPost;
   } catch (error) {
-    console.log(error);
+    console.error("Error creating post:", error);
+    throw error;
   }
 }
 
-// upload file to appwrite storage
+// Upload a file to Appwrite storage
 export async function uploadFile(file) {
   try {
-    const uploadedFile = await storage.createFile(
-      appwrite.storageId,
+    const response = await storage.createFile(
+      appwrite.bucketId,
       ID.unique(),
       file
     );
-
-    return uploadedFile;
+    console.log("File uploaded response:", response);
+    return response;
   } catch (error) {
-    console.log(error);
+    console.error("Error uploading file:", error);
+    throw error;
   }
 }
 
-// Get file preview
+// Get file preview URL
 export function getFilePreview(fileId) {
   try {
-    const fileUrl = storage.getFilePreview(
-      appwrite.storageId,
-      fileId,
-      2000,
-      2000,
-      "top",
-      100
-    );
-
-    if (!fileUrl) throw Error;
-
-    return fileUrl;
+    if (!fileId) {
+      throw new Error("Missing required parameter: 'fileId'");
+    }
+    return storage.getFilePreview(appwrite.bucketId, fileId);
   } catch (error) {
-    console.log(error);
+    console.error("Error getting file preview:", error);
+    throw error;
   }
 }
 
@@ -305,13 +311,15 @@ export async function updatePost(post) {
     if (hasFileToUpdate) {
       // Upload new file to appwrite storage
       const uploadedFile = await uploadFile(post.file[0]);
-      if (!uploadedFile) throw Error;
+      if (!uploadedFile) {
+        throw new Error("Failed to upload new file");
+      }
 
-      // Get new file url
+      // Get new file URL
       const fileUrl = getFilePreview(uploadedFile.$id);
       if (!fileUrl) {
         await deleteFile(uploadedFile.$id);
-        throw Error;
+        throw new Error("Failed to get new file URL");
       }
 
       image = { ...image, imageUrl: fileUrl, imageId: uploadedFile.$id };
@@ -320,7 +328,7 @@ export async function updatePost(post) {
     // Convert tags into array
     const tags = post.tags?.replace(/ /g, "").split(",") || [];
 
-    //  Update post
+    // Update post
     const updatedPost = await databases.updateDocument(
       appwrite.databaseId,
       appwrite.postCollectionId,
@@ -339,7 +347,7 @@ export async function updatePost(post) {
       if (hasFileToUpdate) {
         await deleteFile(image.imageId);
       }
-      throw Error;
+      throw new Error("Failed to update post");
     }
     if (hasFileToUpdate) {
       await deleteFile(post.imageId);
@@ -347,7 +355,8 @@ export async function updatePost(post) {
 
     return updatedPost;
   } catch (error) {
-    console.log(error);
+    console.error("Error updating post:", error);
+    throw error;
   }
 }
 
