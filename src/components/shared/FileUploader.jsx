@@ -5,7 +5,7 @@ import { CameraIcon } from "@heroicons/react/24/solid";
 
 const FileUploader = ({ fieldChange, mediaUrl }) => {
   const [files, setFiles] = useState([]);
-  const [uploadedImageUrl, setUploadedImageUrl] = useState(null);
+  const [uploadedImageUrl, setUploadedImageUrl] = useState(mediaUrl);
 
   FileUploader.propTypes = {
     fieldChange: PropTypes.func.isRequired,

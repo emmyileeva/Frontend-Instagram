@@ -41,66 +41,74 @@ const PostDetails = () => {
         </Button>
       </div>
 
-      <div className="border border-gray-300 rounded-lg mt-4">
-        <img
-          src={post?.imageUrl}
-          alt="creator"
-          className="w-full rounded-t-lg"
-        />
+      {post && (
+        <div className="border border-gray-300 rounded-lg mt-4">
+          <img
+            src={post.imageUrl}
+            alt="creator"
+            className="w-full rounded-t-lg"
+          />
 
-        <div className="p-4">
-          <div className="flex justify-between items-center">
-            <Link
-              to={`/profile/${post?.creator.$id}`}
-              className="flex items-center space-x-3"
-            >
-              <img
-                src={post?.creator.imageUrl || "/icons/profile.png"}
-                alt="creator"
-                className="w-10 h-10 rounded-full"
-              />
-              <div>
-                <p className="font-semibold text-sm">{post?.creator.name}</p>
-                <p className="text-xs text-gray-500">
-                  {getTimeAgo(post?.$createdAt)} • {post?.location}
-                </p>
-              </div>
-            </Link>
+          <div className="p-4">
+            <div className="flex justify-between items-center">
+              <Link
+                to={`/profile/${post.creator.$id}`}
+                className="flex items-center space-x-3"
+              >
+                <img
+                  src={post.creator.imageUrl || "/icons/profile.png"}
+                  alt="creator"
+                  className="w-10 h-10 rounded-full"
+                />
+                <div>
+                  <p className="font-semibold text-sm">{post.creator.name}</p>
+                  <p className="text-xs text-gray-500">
+                    {post.createdAt
+                      ? `${getTimeAgo(post.createdAt)} • ${post.location}`
+                      : "Loading..."}
+                  </p>
+                </div>
+              </Link>
 
-            {user.id === post?.creator.$id && (
-              <div className="space-x-2">
-                <Link to={`/update-post/${post?.$id}`}>
-                  <img src={"/icons/edit.png"} alt="edit" className="w-5 h-5" />
-                </Link>
-                <Button onClick={handleDeletePost} variant="ghost">
-                  <img
-                    src={"/icons/delete.png"}
-                    alt="delete"
-                    className="w-5 h-5"
-                  />
-                </Button>
-              </div>
-            )}
-          </div>
+              {user.id === post.creator.$id && (
+                <div className="space-x-2">
+                  <Link to={`/update-post/${post.$id}`}>
+                    <img
+                      src={"/icons/edit.png"}
+                      alt="edit"
+                      className="w-5 h-5"
+                    />
+                  </Link>
+                  <Button onClick={handleDeletePost} variant="ghost">
+                    <img
+                      src={"/icons/delete.png"}
+                      alt="delete"
+                      className="w-5 h-5"
+                    />
+                  </Button>
+                </div>
+              )}
+            </div>
 
-          <hr className="my-4 border-gray-300" />
+            <hr className="my-4 border-gray-300" />
 
-          <div>
-            <p className="text-sm">{post?.caption}</p>
-            <ul className="flex flex-wrap gap-1 mt-2">
-              {post?.tags.map((tag, index) => (
-                <li key={index} className="text-gray-500 text-xs">
-                  #{tag}
-                </li>
-              ))}
-            </ul>
-          </div>
+            <div>
+              <p className="text-sm">{post.caption}</p>
+              <ul className="flex flex-wrap gap-1 mt-2">
+                {post.tags.map((tag, index) => (
+                  <li key={index} className="text-gray-500 text-xs">
+                    #{tag}
+                  </li>
+                ))}
+              </ul>
+            </div>
 
-          <div className="mt-4">
-            <PostStats post={post} userId={user.id} />
+            <div className="mt-4">
+              <PostStats post={post} userId={user.id} />
+            </div>
           </div>
         </div>
-      </div>
+      )}
 
       <div className="mt-4">
         <h3 className="text-lg font-semibold mb-2">More Related Posts</h3>

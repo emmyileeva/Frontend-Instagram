@@ -7,20 +7,16 @@ const EditPost = () => {
   const { data: post } = useGetPostById(id);
 
   return (
-    <div className="flex flex-1">
-      <div className="common-container">
-        <div className="flex-start gap-3 justify-start w-full max-w-5xl">
-          <img
-            src="/icons/edit.png"
-            width={36}
-            height={36}
-            alt="edit"
-            className="invert-white"
+    <div className="flex flex-col items-center bg-gray-100 min-h-screen md:ml-64">
+      <div className="common-container max-w-5xl w-full p-4">
+        {post && (
+          <Post
+            action="Update"
+            post={post}
+            headerText="Edit Post"
+            iconSrc="/icons/edit.png"
           />
-          <h2 className="h3-bold md:h2-bold text-left w-full">Edit Post</h2>
-        </div>
-
-        {<Post action="Update" post={post} />}
+        )}
       </div>
     </div>
   );

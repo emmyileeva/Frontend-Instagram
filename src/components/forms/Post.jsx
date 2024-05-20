@@ -12,7 +12,7 @@ import { Form, FormField, FormItem } from "../ui/form";
 import { Textarea } from "../ui/textarea";
 import FileUploader from "../shared/FileUploader";
 
-const Post = ({ post, action }) => {
+const Post = ({ post, action, headerText, iconSrc }) => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const { user } = useUserContext();
@@ -30,6 +30,8 @@ const Post = ({ post, action }) => {
   Post.propTypes = {
     post: PropTypes.object,
     action: PropTypes.oneOf(["Create", "Update"]).isRequired,
+    headerText: PropTypes.string.isRequired,
+    iconSrc: PropTypes.string.isRequired,
   };
 
   const { mutateAsync: createPost } = useCreatePost();
@@ -76,16 +78,15 @@ const Post = ({ post, action }) => {
     <div className="bg-gray-100 min-h-screen w-full">
       <div className="flex flex-col h-screen justify-start items-center pt-16 md:pt-8">
         <div className="flex items-center">
-          <img src="/icons/create.png" width={36} height={36} alt="create" />
+          <img src={iconSrc} width={36} height={36} alt={headerText} />
           <h2 className="text-2xl md:text-3xl font-bold ml-4 text-gray-800">
-            Create a post
+            {headerText}
           </h2>
         </div>
         <Form {...form}>
           <form
             onSubmit={(e) => {
               e.preventDefault();
-              console.log("Form submitted");
               form.handleSubmit(handleSubmit)(e);
             }}
             className="flex flex-col gap-6 w-full max-w-2xl md:max-w-4xl p-4 md:p-8 mx-auto"

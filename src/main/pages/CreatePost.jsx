@@ -2,9 +2,11 @@ import Post from "@/components/forms/Post";
 
 const CreatePost = () => {
   return (
-    <div className="flex justify-center">
-      <Post action="Create" />
-    </div>
+    <Post
+      action="Create"
+      headerText="Create a post"
+      iconSrc="/icons/create.png"
+    />
   );
 };
 

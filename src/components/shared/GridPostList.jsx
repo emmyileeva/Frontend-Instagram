@@ -2,12 +2,14 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
 const GridPostList = ({ posts }) => {
+  if (!posts) {
+    return null;
+  }
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-      {" "}
       {posts.map((post) => (
         <div key={post.$id} className="mb-4">
-          {" "}
           <Link to={`/posts/${post.$id}`}>
             <div className="group relative">
               <img
@@ -32,7 +34,7 @@ GridPostList.propTypes = {
       $id: PropTypes.string.isRequired,
       imageUrl: PropTypes.string,
     })
-  ).isRequired,
+  ),
 };
 
 export default GridPostList;

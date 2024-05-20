@@ -10,6 +10,7 @@ const getTimeAgo = (dateString) => {
   const date = parseISO(dateString);
   return formatDistanceToNow(date, { addSuffix: true });
 };
+
 export const checkIsLiked = (likeList, userId) => {
   return likeList.includes(userId);
 };
