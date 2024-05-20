@@ -1,38 +1,33 @@
 import { Link } from "react-router-dom";
-import propTypes from "prop-types";
-import { Button } from "../ui/button";
+import PropTypes from "prop-types";
 
 const UserCard = ({ user }) => {
   return (
-    <Link to={`/profile/${user.$id}`} className="user-card">
-      <img
-        src={user.imageUrl || "/icons/profile.png"}
-        alt="creator"
-        className="rounded-full w-14 h-14"
-      />
-
-      <div className="flex-center flex-col gap-1">
-        <p className="base-medium text-light-1 text-center line-clamp-1">
-          {user.name}
-        </p>
-        <p className="small-regular text-light-3 text-center line-clamp-1">
-          @{user.username}
-        </p>
+    <Link to={`/profile/${user.$id}`}>
+      <div className="bg-white rounded-lg shadow-md p-4 flex items-center">
+        <img
+          src={user.imageUrl || "/icons/profile.png"}
+          alt="creator"
+          className="w-14 h-14 rounded-full"
+        />
+        <div className="ml-4">
+          <p className="font-bold text-lg text-gray-800">{user.name}</p>
+          <p className="text-gray-600 text-sm">@{user.username}</p>
+        </div>
+        <button className="ml-auto bg-blue-500 text-white px-4 py-2 rounded-md">
+          Follow
+        </button>
       </div>
-
-      <Button type="button" size="sm" className="shad-button_primary px-5">
-        Follow
-      </Button>
     </Link>
   );
 };
 
 UserCard.propTypes = {
-  user: propTypes.shape({
-    $id: propTypes.string.isRequired,
-    imageUrl: propTypes.string,
-    name: propTypes.string.isRequired,
-    username: propTypes.string.isRequired,
+  user: PropTypes.shape({
+    $id: PropTypes.string.isRequired,
+    imageUrl: PropTypes.string,
+    name: PropTypes.string.isRequired,
+    username: PropTypes.string.isRequired,
   }),
 };
 

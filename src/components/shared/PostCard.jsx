@@ -10,58 +10,42 @@ const PostCard = ({ post }) => {
   if (!post.creator) return null;
 
   return (
-    <div className="post-card">
-      <div className="flex-between">
-        <div className="flex items-center gap-3">
-          <Link to={`/profile/${post.creator.$id}`}>
-            <img
-              src={post.creator?.imageUrl || "/icons/profile.png"}
-              alt="creator"
-              className="w-12 lg:h-12 rounded-full"
-            />
-          </Link>
-
-          <div className="flex flex-col">
-            <p className="base-medium lg:body-bold text-light-1">
-              {post.creator.name}
-            </p>
-            <div className="flex-center gap-2 text-light-3">
-              <p className="subtle-semibold lg:small-regular">
-                {getTimeAgo(post.$createdAt)}
-              </p>
-              •
-              <p className="subtle-semibold lg:small-regular">
-                {post.location}
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <Link
-          to={`/update-post/${post.$id}`}
-          className={`${user.id !== post.creator.$id && "hidden"}`}
-        >
-          <img src={"/icons/edit.png"} alt="edit" width={20} height={20} />
+    <div className="bg-white rounded-lg shadow-md p-4">
+      <div className="flex items-center mb-4">
+        <Link to={`/profile/${post.creator.$id}`}>
+          <img
+            src={post.creator?.imageUrl || "/icons/profile.png"}
+            alt="creator"
+            className="w-12 h-12 rounded-full"
+          />
         </Link>
-      </div>
-
-      <Link to={`/posts/${post.$id}`}>
-        <div className="small-medium lg:base-medium py-5">
-          <p>{post.caption}</p>
-          <ul className="flex gap-1 mt-2">
-            {post.tags.map((tag, index) => (
-              <li key={`${tag}${index}`} className="text-light-3 small-regular">
-                #{tag}
-              </li>
-            ))}
-          </ul>
+        <div className="ml-4">
+          <p className="font-bold text-lg text-gray-800">{post.creator.name}</p>
+          <p className="text-gray-600 text-sm">{getTimeAgo(post.$createdAt)}</p>
         </div>
+      </div>
+      <div className="mb-4">
+        <p className="text-gray-800">{post.caption}</p>
+        <ul className="flex gap-1 mt-2">
+          {post.tags.map((tag, index) => (
+            <li key={`${tag}${index}`} className="text-gray-500 text-sm">
+              #{tag}
+            </li>
+          ))}
+        </ul>
+      </div>
+      <Link to={`/posts/${post.$id}`}>
         <img
           src={post.imageUrl || "/icons/profile.png"}
           alt="post image"
-          className="post-card_img"
+          className="w-full h-auto rounded-md"
         />
       </Link>
+      {user.id === post.creator.$id && (
+        <Link to={`/update-post/${post.$id}`} className="mt-2 text-blue-500">
+          Edit Post
+        </Link>
+      )}
       <PostStats post={post} userId={user.id} />
     </div>
   );
@@ -69,14 +53,12 @@ const PostCard = ({ post }) => {
 
 PostCard.propTypes = {
   post: PropTypes.shape({
-    $id: PropTypes.string.isRequired,
     creator: PropTypes.shape({
       $id: PropTypes.string.isRequired,
       imageUrl: PropTypes.string,
       name: PropTypes.string.isRequired,
     }),
     $createdAt: PropTypes.string.isRequired,
-    location: PropTypes.string,
     caption: PropTypes.string.isRequired,
     imageUrl: PropTypes.string,
     tags: PropTypes.arrayOf(PropTypes.string),
