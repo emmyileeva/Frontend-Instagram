@@ -461,3 +461,20 @@ export async function getUserPosts(userId) {
     console.error(error);
   }
 }
+
+// get user by id
+export async function getUserById(userId) {
+  try {
+    const user = await databases.getDocument(
+      appwrite.databaseId,
+      appwrite.userCollectionId,
+      userId
+    );
+
+    if (!user) throw Error;
+
+    return user;
+  } catch (error) {
+    console.log(error);
+  }
+}
