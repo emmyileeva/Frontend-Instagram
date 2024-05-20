@@ -10,13 +10,16 @@ const UserCard = ({ user }) => {
           alt="creator"
           className="w-14 h-14 rounded-full"
         />
-        <div className="ml-4">
-          <p className="font-bold text-lg text-gray-800">{user.name}</p>
-          <p className="text-gray-600 text-sm">@{user.username}</p>
+        <div className="ml-4 flex-grow">
+          {" "}
+          <div>
+            <p className="font-bold text-lg text-gray-800">{user.name}</p>
+            <p className="text-gray-600 text-sm">@{user.username}</p>
+          </div>
+          <button className="ml-auto bg-blue-500 text-white px-4 py-2 rounded-md">
+            Follow
+          </button>
         </div>
-        <button className="ml-auto bg-blue-500 text-white px-4 py-2 rounded-md">
-          Follow
-        </button>
       </div>
     </Link>
   );

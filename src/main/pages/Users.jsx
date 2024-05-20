@@ -13,16 +13,12 @@ const Users = () => {
   }
 
   return (
-    <div className="bg-gray-100 min-h-screen w-full">
-      <div className="flex flex-col h-screen justify-start items-center pt-16 md:pt-8">
-        <div className="flex items-center">
-          <h2 className="text-2xl md:text-3xl font-bold ml-4 text-gray-800">
-            All Users
-          </h2>
-        </div>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 w-full max-w-2xl md:max-w-4xl p-4 md:p-8 mx-auto">
+    <div className="bg-gray-100 min-h-screen">
+      <div className="max-w-screen-lg mx-auto px-4 py-8">
+        <h2 className="text-3xl font-semibold text-gray-800 mb-6">All Users</h2>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
           {creators?.documents.map((creator) => (
-            <div key={creator?.$id} className="flex flex-col items-center">
+            <div key={creator?.$id}>
               <UserCard user={creator} />
             </div>
           ))}
