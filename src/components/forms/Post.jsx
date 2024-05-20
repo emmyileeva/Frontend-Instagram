@@ -36,8 +36,6 @@ const Post = ({ post, action }) => {
   const { mutateAsync: updatePost } = useUpdatePost();
 
   const handleSubmit = async (value) => {
-    console.log("Form Submitted", value); // Log to check if handleSubmit is called
-
     try {
       if (post && action === "Update") {
         const updatedPost = await updatePost({
@@ -53,7 +51,7 @@ const Post = ({ post, action }) => {
           });
         } else {
           navigate(`/posts/${post.$id}`);
-          return; // return here to prevent the execution of the "Create" action
+          return;
         }
       } else {
         const newPost = await createPost({
@@ -70,7 +68,7 @@ const Post = ({ post, action }) => {
         }
       }
     } catch (error) {
-      console.error("Error in handleSubmit:", error); // Log errors
+      console.error("Error in handleSubmit:", error);
     }
   };
 

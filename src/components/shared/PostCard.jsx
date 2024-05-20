@@ -69,6 +69,7 @@ const PostCard = ({ post }) => {
 
 PostCard.propTypes = {
   post: PropTypes.shape({
+    $id: PropTypes.string.isRequired,
     creator: PropTypes.shape({
       $id: PropTypes.string.isRequired,
       imageUrl: PropTypes.string,
