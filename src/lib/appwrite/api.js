@@ -194,7 +194,7 @@ export function getFilePreview(fileId) {
 // Delete a file from appwrite storage
 export async function deleteFile(fileId) {
   try {
-    await storage.deleteFile(appwrite.storageId, fileId);
+    await storage.deleteFile(appwrite.bucketId, fileId);
 
     return { status: "ok" };
   } catch (error) {
@@ -364,6 +364,16 @@ export async function deletePost(postId, imageId) {
   if (!postId || !imageId) return;
 
   try {
+    const post = await databases.getDocument(
+      appwrite.databaseId,
+      appwrite.postCollectionId,
+      postId
+    );
+    if (!post) {
+      console.error(`Post with ID ${postId} not found.`);
+      return;
+    }
+
     const statusCode = await databases.deleteDocument(
       appwrite.databaseId,
       appwrite.postCollectionId,
@@ -395,13 +405,21 @@ export async function getInfinitePosts({ pageParam }) {
       queries
     );
 
-    if (!posts) throw Error;
-
     return posts;
   } catch (error) {
-    console.log(error);
+    console.error(`Error: ${error.message}`);
+    // If the document used as the cursor is not found, try fetching the documents without the cursor
+    if (error.message.includes("cursor")) {
+      const posts = await databases.listDocuments(
+        appwrite.databaseId,
+        appwrite.postCollectionId,
+        [Query.orderDesc("$updatedAt"), Query.limit(9)]
+      );
+      return posts;
+    }
   }
 }
+
 // search posts
 export async function searchPosts(searchTerm) {
   try {
