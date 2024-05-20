@@ -31,46 +31,27 @@ const Explore = () => {
 
   return (
     <div className="flex flex-col items-center bg-gray-100 min-h-screen md:ml-64">
-      <div className="max-w-5xl w-full">
-        <div className="py-4">
-          <h2 className="text-2xl font-semibold">Search Posts</h2>
-          <div className="flex items-center bg-white rounded-lg mt-2">
-            <img
-              src="/icons/search.png"
-              width={24}
-              height={24}
-              alt="search"
-              className="mx-2"
-            />
-            <Input
-              type="text"
-              placeholder="Search"
-              className="w-full focus:outline-none"
-              value={searchValue}
-              onChange={(e) => {
-                const { value } = e.target;
-                setSearchValue(value);
-              }}
-            />
-          </div>
+      <div className="max-w-6xl w-full py-8">
+        <h1 className="text-3xl font-bold mb-8">Explore</h1>
+        <div className="w-full max-w-md mx-auto mb-8">
+          <Input
+            type="text"
+            placeholder="Search"
+            className="w-full bg-gray-100 border border-gray-300 focus:outline-none focus:border-gray-500 rounded-md px-4 py-2"
+            value={searchValue}
+            onChange={(e) => setSearchValue(e.target.value)}
+          />
         </div>
 
-        <div className="flex items-center justify-between mb-4">
-          <h3 className="text-xl font-semibold">Popular Today</h3>
-          <div className="flex items-center gap-3 bg-gray-200 rounded-xl px-4 py-2 cursor-pointer">
-            <p className="text-sm font-medium text-gray-500">All</p>
-            <img src="/icons/filter.png" width={20} height={20} alt="filter" />
-          </div>
-        </div>
-
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <h2 className="text-xl font-semibold mb-4">Trending</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {shouldShowSearchResults ? (
             <SearchResults
               isSearchFetching={isSearchFetching}
               searchedPosts={searchedPosts}
             />
           ) : shouldShowPosts ? (
-            <p className="text-light-4 text-center w-full">End of posts</p>
+            <p className="text-gray-500 text-center w-full">No posts found</p>
           ) : (
             posts.pages.map((item, index) => (
               <GridPostList key={`page-${index}`} posts={item.documents} />
@@ -80,7 +61,7 @@ const Explore = () => {
 
         {hasNextPage && !searchValue && (
           <div ref={ref} className="mt-10">
-            <div>Loading more posts...</div>
+            <p className="text-center text-gray-500">Loading more posts...</p>
           </div>
         )}
       </div>

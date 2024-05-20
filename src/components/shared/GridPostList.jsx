@@ -1,46 +1,34 @@
-import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
-import PostStats from "./PostStats";
-import { useUserContext } from "@/context/authcontext";
+import { Link } from "react-router-dom";
 
-const GridPostList = ({ posts, showUser = true, showStats = true }) => {
-  const { user } = useUserContext();
-
+const GridPostList = ({ posts }) => {
   return (
-    <ul className="grid-container">
+    <>
       {posts.map((post) => (
-        <li key={post.$id} className="relative min-w-80 h-80">
-          <Link to={`/posts/${post.$id}`} className="grid-post_link">
+        <Link to={`/posts/${post.$id}`} key={post.$id}>
+          <div className="group relative">
             <img
-              src={post.imageUrl}
-              alt="post"
-              className="h-full w-full object-cover"
+              src={post.imageUrl || "/placeholder.jpg"}
+              alt="Post"
+              className="w-full h-64 object-cover rounded-md"
             />
-          </Link>
-
-          <div className="grid-post_user">
-            {showUser && (
-              <div className="flex items-center justify-start gap-2 flex-1">
-                <img
-                  src={post.creator.imageUrl || "/icons/profile.png"}
-                  alt="creator"
-                  className="w-8 h-8 rounded-full"
-                />
-                <p className="line-clamp-1">{post.creator.name}</p>
-              </div>
-            )}
-            {showStats && <PostStats post={post} userId={user.id} />}
+            <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-40 transition duration-300 flex items-center justify-center">
+              <p className="text-white font-bold text-lg">View Post</p>
+            </div>
           </div>
-        </li>
+        </Link>
       ))}
-    </ul>
+    </>
   );
 };
 
-export default GridPostList;
-
 GridPostList.propTypes = {
-  posts: PropTypes.array.isRequired,
-  showUser: PropTypes.bool,
-  showStats: PropTypes.bool,
+  posts: PropTypes.arrayOf(
+    PropTypes.shape({
+      $id: PropTypes.string.isRequired,
+      imageUrl: PropTypes.string,
+    })
+  ).isRequired,
 };
+
+export default GridPostList;
