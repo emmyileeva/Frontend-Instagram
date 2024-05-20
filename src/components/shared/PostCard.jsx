@@ -58,6 +58,7 @@ PostCard.propTypes = {
       imageUrl: PropTypes.string,
       name: PropTypes.string.isRequired,
     }),
+    $id: PropTypes.string.isRequired,
     $createdAt: PropTypes.string.isRequired,
     caption: PropTypes.string.isRequired,
     imageUrl: PropTypes.string,

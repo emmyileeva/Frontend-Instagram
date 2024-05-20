@@ -22,6 +22,7 @@ import {
   getUsers,
   getUserPosts,
   getUserById,
+  updateUser,
 } from "@/lib/appwrite/api";
 
 const QUERY_KEYS = {
@@ -210,5 +211,20 @@ export const useGetUserById = (userId) => {
     queryKey: ["GET_USER_BY_ID", userId],
     queryFn: () => getUserById(userId),
     enabled: !!userId,
+  });
+};
+
+export const useUpdateUser = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (user) => updateUser(user),
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({
+        queryKey: ["GET_CURRENT_USER"],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["GET_USER_BY_ID", data?.$id],
+      });
+    },
   });
 };

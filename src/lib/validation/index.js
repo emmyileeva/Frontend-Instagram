@@ -41,3 +41,13 @@ export const PostValidation = z.object({
     .array(z.instanceof(File))
     .nonempty({ message: "Please select at least one image" }),
 });
+
+export const ProfileValidation = z.object({
+  file: z.custom(),
+  name: z.string().min(2, { message: "Name must be at least 2 characters." }),
+  username: z
+    .string()
+    .min(2, { message: "Name must be at least 2 characters." }),
+  email: z.string().email(),
+  bio: z.string(),
+});

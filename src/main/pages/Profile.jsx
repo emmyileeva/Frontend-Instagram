@@ -24,12 +24,10 @@ const Profile = () => {
   return (
     <div className="bg-gray-100 min-h-screen py-8">
       <div className="max-w-5xl mx-auto px-4">
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between mb-8">
           <div className="flex items-center">
             <img
-              src={
-                currentUser.imageUrl || "/assets/icons/profile-placeholder.svg"
-              }
+              src={currentUser.imageUrl || "/icons/profile.png"}
               alt="profile"
               className="w-24 h-24 md:w-32 md:h-32 rounded-full"
             />
@@ -41,7 +39,7 @@ const Profile = () => {
           <div className="flex gap-8">
             {user.id === currentUser.$id && (
               <Link
-                to={`/update-profile/${currentUser.$id}`}
+                to={`/update/${currentUser.$id}`}
                 className="bg-blue-500 text-white px-4 py-2 rounded-md"
               >
                 Edit Profile
@@ -54,10 +52,8 @@ const Profile = () => {
             )}
           </div>
         </div>
-        <div className="mt-8">
-          <p className="text-sm text-gray-800">{currentUser.bio}</p>
-        </div>
-        <div className="flex mt-8">
+        <p className="text-sm text-gray-800 mb-8">{currentUser.bio}</p>
+        <div className="flex mb-8">
           <Link
             to={`/profile/${id}`}
             className={`flex-1 py-2 text-center rounded-l-lg ${
@@ -69,7 +65,7 @@ const Profile = () => {
           <Link
             to={`/profile/${id}/liked-posts`}
             className={`flex-1 py-2 text-center rounded-r-lg ${
-              pathname === `/profile/${id}/liked-posts` && "bg-blue-200"
+              pathname === `/profile/${id}/liked` && "bg-blue-200"
             }`}
           >
             Liked Posts

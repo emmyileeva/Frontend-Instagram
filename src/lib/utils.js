@@ -14,4 +14,8 @@ export const checkIsLiked = (likeList, userId) => {
   return likeList.includes(userId);
 };
 
+export const convertFileToUrl = (file) => {
+  return URL.createObjectURL(file);
+};
+
 export default getTimeAgo;
