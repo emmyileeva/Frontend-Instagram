@@ -42,7 +42,7 @@ const PostCard = ({ post }) => {
         />
       </Link>
       {user.id === post.creator.$id && (
-        <Link to={`/update-post/${post.$id}`} className="mt-2 text-blue-500">
+        <Link to={`/edit-post/${post.$id}`} className="mt-2 text-blue-500">
           Edit Post
         </Link>
       )}

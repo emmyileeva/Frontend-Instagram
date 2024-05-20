@@ -10,7 +10,7 @@ import {
   useParams,
   useLocation,
 } from "react-router-dom";
-import { Liked } from "@/main/pages";
+import Liked from "@/main/pages/Liked";
 
 const Profile = () => {
   const { id } = useParams();
@@ -63,7 +63,7 @@ const Profile = () => {
             Posts
           </Link>
           <Link
-            to={`/profile/${id}/liked-posts`}
+            to={`/profile/${id}/liked`}
             className={`flex-1 py-2 text-center rounded-r-lg ${
               pathname === `/profile/${id}/liked` && "bg-blue-200"
             }`}
