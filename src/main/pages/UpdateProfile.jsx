@@ -34,6 +34,7 @@ const UpdateProfile = () => {
       const updatedUser = await updateUser({
         userId: currentUser.$id,
         name: value.name,
+        username: value.username,
         bio: value.bio,
         file: value.file,
         imageUrl: currentUser.imageUrl,
@@ -81,6 +82,21 @@ const UpdateProfile = () => {
               id="name"
               type="text"
               {...form.register("name")}
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-400 focus:ring focus:ring-primary-200 focus:ring-opacity-50 bg-white"
+            />
+          </div>
+
+          <div>
+            <label
+              htmlFor="username"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Username
+            </label>
+            <Input
+              id="username"
+              type="text"
+              {...form.register("username")}
               className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-400 focus:ring focus:ring-primary-200 focus:ring-opacity-50 bg-white"
             />
           </div>
