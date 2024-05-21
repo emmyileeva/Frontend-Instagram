@@ -5,8 +5,10 @@ const Saved = () => {
   const { data: currentUser } = useGetCurrentUser();
 
   const savePosts = (currentUser?.save || [])
+    .filter((savePost) => savePost.post !== null)
     .map((savePost) => ({
       ...savePost.post,
+      $id: savePost.post.$id,
       creator: {
         imageUrl: currentUser.imageUrl,
       },

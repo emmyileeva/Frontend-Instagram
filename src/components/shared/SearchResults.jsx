@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import GridPostList from "./GridPostList";
 
-const SearchResults = ({ isSearchFetching, searchedPosts }) => {
+const SearchResults = ({ isSearchFetching, searchedPosts = null }) => {
   if (isSearchFetching) {
     return (
       <div className="flex justify-center items-center w-full h-full">
