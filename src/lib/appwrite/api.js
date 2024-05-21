@@ -109,12 +109,8 @@ export async function signOutAccount() {
 // Create a new post
 export async function createPost(post) {
   try {
-    console.log("Uploading file:", post.file[0]);
-
     // Upload file to appwrite storage
     const uploadedFile = await uploadFile(post.file[0]);
-
-    console.log("Uploaded file:", uploadedFile);
 
     if (!uploadedFile) {
       throw new Error("Failed to upload file");
@@ -122,8 +118,6 @@ export async function createPost(post) {
 
     // Get file URL
     const fileUrl = getFilePreview(uploadedFile.$id);
-
-    console.log("File URL:", fileUrl);
 
     if (!fileUrl) {
       await deleteFile(uploadedFile.$id);
@@ -148,8 +142,6 @@ export async function createPost(post) {
       }
     );
 
-    console.log("New post:", newPost);
-
     if (!newPost) {
       await deleteFile(uploadedFile.$id);
       throw new Error("Failed to create post");
@@ -170,7 +162,6 @@ export async function uploadFile(file) {
       ID.unique(),
       file
     );
-    console.log("File uploaded response:", response);
     return response;
   } catch (error) {
     console.error("Error uploading file:", error);
