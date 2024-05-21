@@ -17,14 +17,15 @@ const UpdateProfile = () => {
   const { user, setUser } = useUserContext();
   const { data: currentUser } = useGetUserById(id || "");
   const { mutateAsync: updateUser } = useUpdateUser();
+
   const form = useForm({
     resolver: zodResolver(ProfileValidation),
     defaultValues: {
       file: [],
-      name: user.name,
-      username: user.username,
-      email: user.email,
-      bio: user.bio || "",
+      name: currentUser?.name || "",
+      username: currentUser?.username || "",
+      email: currentUser?.email || "",
+      bio: currentUser?.bio || "",
     },
   });
 
@@ -43,7 +44,7 @@ const UpdateProfile = () => {
         ...user,
         name: updatedUser?.name,
         bio: updatedUser?.bio,
-        imageUrl: updatedUser?.imageUrl,
+        imageUrl: `${updatedUser?.imageUrl}?timestamp=${new Date().getTime()}`,
       });
       navigate(`/profile/${id}`);
     } catch (error) {
@@ -52,6 +53,8 @@ const UpdateProfile = () => {
       });
     }
   };
+
+  if (!currentUser) return null;
 
   return (
     <div className="bg-gray-100 min-h-screen py-8">
@@ -64,7 +67,7 @@ const UpdateProfile = () => {
         <form onSubmit={form.handleSubmit(handleUpdate)} className="space-y-6">
           <ProfileUploader
             fieldChange={form.setValue}
-            mediaUrl={currentUser.imageUrl}
+            mediaUrl={currentUser?.imageUrl}
           />
 
           <div>

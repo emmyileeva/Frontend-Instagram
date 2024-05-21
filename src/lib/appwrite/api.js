@@ -489,7 +489,7 @@ export async function getUserById(userId) {
 
 // update user
 export async function updateUser(user) {
-  const hasFileToUpdate = user.file.length > 0;
+  const hasFileToUpdate = user.file?.length > 0;
   try {
     let image = {
       imageUrl: user.imageUrl,
@@ -523,6 +523,11 @@ export async function updateUser(user) {
         imageId: image.imageId,
       }
     );
+
+    // If a new file is provided, update the user's avatar
+    if (hasFileToUpdate && user.file && Array.isArray(user.file)) {
+      await appwrite.account.updateAvatar(user.file[0]);
+    }
 
     // Failed to update
     if (!updatedUser) {

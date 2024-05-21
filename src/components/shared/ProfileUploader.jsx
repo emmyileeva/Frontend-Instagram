@@ -1,17 +1,21 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import PropTypes from "prop-types";
-import { convertFileToUrl } from "@/lib/utils";
 
 const ProfileUploader = ({ fieldChange, mediaUrl }) => {
-  const [setFile] = useState([]);
   const [fileUrl, setFileUrl] = useState(mediaUrl);
 
-  const onDrop = (acceptedFiles) => {
-    setFile(acceptedFiles);
-    fieldChange(acceptedFiles);
-    setFileUrl(convertFileToUrl(acceptedFiles[0]));
-  };
+  const onDrop = useCallback(
+    (acceptedFiles) => {
+      fieldChange("file", acceptedFiles);
+      const reader = new FileReader();
+      reader.onload = () => {
+        setFileUrl(reader.result);
+      };
+      reader.readAsDataURL(acceptedFiles[0]);
+    },
+    [fieldChange]
+  );
 
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,
@@ -21,13 +25,12 @@ const ProfileUploader = ({ fieldChange, mediaUrl }) => {
   });
 
   return (
-    <div {...getRootProps()}>
+    <div {...getRootProps()} className="cursor-pointer flex-center gap-4">
       <input {...getInputProps()} className="cursor-pointer" />
-
-      <div className="cursor-pointer flex-center gap-4">
+      <div className="flex items-center gap-4">
         <img
           src={fileUrl || "/icons/profile.png"}
-          alt="image"
+          alt="profile"
           className="h-24 w-24 rounded-full object-cover object-top"
         />
         <p className="text-primary-500 small-regular md:base-semibold">
