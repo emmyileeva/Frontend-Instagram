@@ -63,15 +63,13 @@ const PostDetails = () => {
                 <div>
                   <p className="font-semibold text-sm">{post.creator.name}</p>
                   <p className="text-xs text-gray-500">
-                    {post.createdAt
-                      ? `${getTimeAgo(post.createdAt)} • ${post.location}`
-                      : "Loading..."}
+                    {getTimeAgo(post.$createdAt)}
                   </p>
                 </div>
               </Link>
 
               {user.id === post.creator.$id && (
-                <div className="space-x-2">
+                <div className="space-x-2 flex items-center">
                   <Link to={`/update-post/${post.$id}`}>
                     <img
                       src={"/icons/edit.png"}
