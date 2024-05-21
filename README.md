@@ -2,7 +2,7 @@
 
 ## Description
 
-Instagram Clone is a full-stack web application inspired by Instagram, allowing users to share photos and videos with their followers. Users can create accounts, upload posts, like and comment on posts, follow other users, and explore trending content. The project is built using the MERN stack (MongoDB, Express.js, React.js, Node.js) for the backend and frontend, with JSON Web Tokens (JWT) for user authentication.
+Instagram Clone is a full-stack web application inspired by Instagram, allowing users to share photos and videos with their followers. Users can create accounts, upload posts, like and comment on posts, follow other users, and explore trending content.
 
 ## Features
 
@@ -12,9 +12,7 @@ Instagram Clone is a full-stack web application inspired by Instagram, allowing 
 - Interaction: Like and comment on posts, follow other users, and receive notifications for interactions.
 - Explore: Discover trending content, search for users and posts, and explore categories.
 - Messaging: Direct messaging functionality for private conversations between users.
-- Explore Nearby: Find posts and users based on location proximity.
 - Hashtags: Clickable hashtags to discover related content.
-- Stories: Users can create and view ephemeral photo and video stories.
 - Dark Mode: Toggle between light and dark mode for different viewing preferences.
 - Responsive design: Enjoy a seamless user experience across devices of all sizes.
 
@@ -22,42 +20,37 @@ Instagram Clone is a full-stack web application inspired by Instagram, allowing 
 
 - **Frontend**:
 
-  - React.js
-  - React Router
-  - Axios
+  - React.js: A powerful JavaScript library for building interactive user interfaces.
+  - React Router: Enables seamless navigation within the application.
+  - React Query: Provides advanced caching and state management for efficient data fetching.
 
 - **Backend**:
 
-  - Node.js
-  - Express.js
-  - MongoDB
-  - Mongoose
+  - Appwrite: A robust backend-as-a-service (BaaS) platform used for authentication, database management, file storage, and more.
+
+- **File Management**:
+
+  - Appwrite Storage: Leveraged for efficient and secure file storage, enabling users to upload and manage media files seamlessly.
 
 - **Authentication**:
 
-  - JSON Web Tokens (JWT)
-
-  **External APIs and Libraries**:
-
-  - Google Maps API: Provides services for integrating maps and location-based features into the application.
-  - Cloudinary: Cloud-based media management solution offering APIs for uploading, managing, and delivering images and videos.
-  - Socket.IO: Library for enabling real-time bidirectional communication between clients and servers.
+  - Appwrite Auth: With Appwrite Auth, users can securely register, login, and logout of their accounts using JSON Web Tokens (JWT).
 
 - **Other tools**:
 
   - Git
   - GitHub
-  - Heroku for backend deployment
+  - Appwrite for backend deployment
   - Vercel for frontend deployment
 
 - **Styling**:
-  - Tailwind CSS
+  - Tailwind CSS: A utility-first CSS framework for creating custom designs with ease.
+  - Shadcn UI: A UI toolkit used for styling the application's components, providing pre-designed elements and layouts for consistent and visually appealing user interfaces.
 
 ## Links
 
 - Visit the deployed site [here](link-to-deployed-site).
 - Access the project's Trello board [here](https://trello.com/b/XpuHwdJ5/instagram-mern-stack).
-- Find the backend repository [here](https://github.com/emmyileeva/Backend-Instagram).
 - View the Entity Relationship Diagram (ERD) [here](https://lucid.app/lucidchart/a6fc04e8-4f5d-42f0-98d8-6d4c0d3d3bab/edit?beaconFlowId=23408A01D8608450&invitationId=inv_bbf58c00-d5f8-4e25-9e6a-f4812c17c496&page=0_0#).
 - View the Component Hierarchy Diagram [here](https://lucid.app/lucidchart/1c6b8ee6-b632-4835-aab7-e48f105b70a9/edit?beaconFlowId=1B606789F058EA9B&invitationId=inv_5c978f88-e6af-45bf-a65d-a899126d4d6d&page=0_0).
 
@@ -67,9 +60,9 @@ Instagram Clone is a full-stack web application inspired by Instagram, allowing 
 
 ## Future Updates
 
-- Implement real-time notifications for interactions.
-- Improve search functionality with filters and sorting options.
-- Enhance messaging feature with multimedia support.
+- Real-time notifications for interactions to enhance user engagement.
+- Advanced search functionality with filters and sorting options for discovering content.
+- Multimedia support in messaging features for richer communication experiences.
 
 ## Credits
 
