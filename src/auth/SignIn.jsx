@@ -15,11 +15,13 @@ import { Link, useNavigate } from "react-router-dom";
 import { useToast } from "@/components/ui/use-toast";
 import { useSignInAccount } from "@/lib/react-query/queries";
 import { useUserContext } from "@/context/authcontext";
+import { useState } from "react";
 
 const SignIn = () => {
   const { toast } = useToast();
   const { checkAuthUser } = useUserContext();
   const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
 
   const form = useForm({
     resolver: zodResolver(SignInValidation),
@@ -33,27 +35,27 @@ const SignIn = () => {
 
   const handleSignIn = async (user) => {
     try {
+      // Check if a session is already active
+      const isLoggedIn = await checkAuthUser();
+      if (isLoggedIn) {
+        toast({ title: "You're already logged in." });
+        navigate("/");
+        return;
+      }
+
       const session = await signInAccount({
         email: user.email,
         password: user.password,
       });
+
       if (!session) {
         toast({ title: "Something went wrong. Please login your account" });
         navigate("/sign-in");
         return;
       }
-      const isLoggedIn = await checkAuthUser();
 
-      if (isLoggedIn) {
-        form.reset();
-        navigate("/");
-      } else {
-        toast({
-          title: "Success",
-          message: "User account created successfully",
-          status: "success",
-        });
-      }
+      form.reset();
+      navigate("/");
     } catch (error) {
       console.log({ error });
     }
@@ -102,21 +104,18 @@ const SignIn = () => {
             name="password"
             render={({ field }) => (
               <FormItem>
-                <FormLabel
-                  htmlFor="password"
-                  className="block text-sm font-medium text-gray-700"
-                >
-                  Password
-                </FormLabel>
-                <FormControl>
-                  <Input
-                    type="password"
-                    id="password"
-                    className="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
+                <FormLabel className="text-gray-700">Password</FormLabel>
+                <div className="relative">
+                  <Input type={showPassword ? "text" : "password"} {...field} />
+                  <button
+                    type="button"
+                    className="absolute inset-y-0 right-0 pr-3 flex items-center text-sm text-gray-500"
+                    onClick={() => setShowPassword(!showPassword)}
+                  >
+                    {showPassword ? "Hide" : "Show"}
+                  </button>
+                </div>
+                <FormMessage error={form.formState.errors.password?.message} />
               </FormItem>
             )}
           />

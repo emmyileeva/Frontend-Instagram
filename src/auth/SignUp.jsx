@@ -18,11 +18,13 @@ import {
   useSignInAccount,
 } from "@/lib/react-query/queries";
 import { useUserContext } from "@/context/authcontext";
+import { useState } from "react";
 
 const SignUp = () => {
   const { toast } = useToast();
   const { checkAuthUser } = useUserContext();
   const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
 
   const form = useForm({
     resolver: zodResolver(SignUpValidation),
@@ -161,21 +163,18 @@ const SignUp = () => {
             name="password"
             render={({ field }) => (
               <FormItem>
-                <FormLabel
-                  htmlFor="password"
-                  className="block text-sm font-medium text-gray-700"
-                >
-                  Password
-                </FormLabel>
-                <FormControl>
-                  <Input
-                    type="password"
-                    id="password"
-                    className="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
+                <FormLabel className="text-gray-700">Password</FormLabel>
+                <div className="relative">
+                  <Input type={showPassword ? "text" : "password"} {...field} />
+                  <button
+                    type="button"
+                    className="absolute inset-y-0 right-0 pr-3 flex items-center text-sm text-gray-500"
+                    onClick={() => setShowPassword(!showPassword)}
+                  >
+                    {showPassword ? "Hide" : "Show"}
+                  </button>
+                </div>
+                <FormMessage error={form.formState.errors.password?.message} />
               </FormItem>
             )}
           />

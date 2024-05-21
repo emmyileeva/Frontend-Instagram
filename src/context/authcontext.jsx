@@ -22,7 +22,7 @@ export const AuthProvider = ({ children }) => {
   const checkAuthUser = async () => {
     try {
       const currentAccount = await getCurrentUser();
-      if (currentAccount) {
+      if (currentAccount && currentAccount.$id) {
         setUser({
           id: currentAccount.$id,
           name: currentAccount.name,
@@ -40,16 +40,16 @@ export const AuthProvider = ({ children }) => {
       return false;
     }
   };
-  // useEffect(() => {
-  //   const checkAuthentication = async () => {
-  //     const isAuthenticated = await checkAuthUser();
-  //     // Navigate to sign-in if not authenticated
-  //     if (!isAuthenticated) {
-  //       navigate("/sign-in");
-  //     }
-  //   };
-  //   checkAuthentication();
-  // }, [navigate]);
+  useEffect(() => {
+    const checkAuthentication = async () => {
+      const isAuthenticated = await checkAuthUser();
+      // Navigate to sign-in if not authenticated
+      if (!isAuthenticated) {
+        // navigate("/sign-in");
+      }
+    };
+    checkAuthentication();
+  }, [navigate]);
 
   const value = {
     user,

@@ -1,19 +1,24 @@
-import { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "../ui/button";
+import { INITIAL_USER, useUserContext } from "@/context/authcontext";
 import { useSignOutAccount } from "@/lib/react-query/queries";
-import { useUserContext } from "@/context/authcontext";
 
 const Top = () => {
   const navigate = useNavigate();
-  const { user } = useUserContext();
-  const { mutate: signOut, isSuccess } = useSignOutAccount();
+  const { mutate: signOut } = useSignOutAccount();
+  const { user, setUser, setIsAuthenticated } = useUserContext();
 
-  useEffect(() => {
-    if (isSuccess) {
+  const handleSignOut = async (e) => {
+    e.preventDefault();
+    try {
+      await signOut();
+      setIsAuthenticated(false);
+      setUser(INITIAL_USER);
       navigate("/sign-in");
+    } catch (error) {
+      console.error("Error signing out:", error);
     }
-  }, [isSuccess, navigate]);
+  };
 
   return (
     <section className="bg-white shadow-sm relative top-0 w-full z-10 md:hidden">
@@ -34,7 +39,7 @@ const Top = () => {
                 className="h-8 w-8 rounded-full md:h-10 md:w-10"
               />
             </Link>
-            <Button variant="ghost" onClick={() => signOut()}>
+            <Button variant="ghost" onClick={handleSignOut}>
               <img
                 src="/icons/logout.png"
                 alt="logout"
