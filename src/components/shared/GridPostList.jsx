@@ -7,7 +7,7 @@ const GridPostList = ({ posts }) => {
   }
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
       {posts.map((post) => (
         <div key={post.$id} className="mb-4">
           <Link to={`/posts/${post.$id}`}>
@@ -15,7 +15,7 @@ const GridPostList = ({ posts }) => {
               <img
                 src={post.imageUrl || "/placeholder.jpg"}
                 alt="Post"
-                className="w-full h-64 object-cover rounded-md"
+                className="w-full h-80 md:h-96 lg:h-120 object-cover rounded-md"
               />
               <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-40 transition duration-300 flex items-center justify-center">
                 <p className="text-white font-bold text-lg">View Post</p>
