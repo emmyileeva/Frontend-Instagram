@@ -16,7 +16,7 @@ const Top = () => {
   }, [isSuccess, navigate]);
 
   return (
-    <section className="bg-white shadow-sm fixed top-0 w-full z-10 md:hidden">
+    <section className="bg-white shadow-sm relative top-0 w-full z-10 md:hidden">
       <div className="mx-auto flex justify-center items-center px-10 py-2">
         <Link to="/" className="flex items-center">
           <img

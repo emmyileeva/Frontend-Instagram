@@ -40,16 +40,16 @@ export const AuthProvider = ({ children }) => {
       return false;
     }
   };
-  useEffect(() => {
-    const checkAuthentication = async () => {
-      const isAuthenticated = await checkAuthUser();
-      // Navigate to sign-in if not authenticated
-      if (!isAuthenticated) {
-        navigate("/sign-in");
-      }
-    };
-    checkAuthentication();
-  }, [navigate]);
+  // useEffect(() => {
+  //   const checkAuthentication = async () => {
+  //     const isAuthenticated = await checkAuthUser();
+  //     // Navigate to sign-in if not authenticated
+  //     if (!isAuthenticated) {
+  //       navigate("/sign-in");
+  //     }
+  //   };
+  //   checkAuthentication();
+  // }, [navigate]);
 
   const value = {
     user,

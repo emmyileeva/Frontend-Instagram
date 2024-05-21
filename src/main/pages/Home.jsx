@@ -18,20 +18,27 @@ const Home = () => {
   }
 
   return (
-    <div className="flex justify-center bg-gray-100 min-h-screen">
-      <div className="container mx-auto py-8 md:pl-64">
-        {" "}
-        <h2 className="text-2xl font-bold mb-4">Home Feed</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {posts?.map((post) => (
-            <PostCard key={post.$id} post={post} />
-          ))}
-        </div>
-        <h3 className="text-2xl font-bold mt-8 mb-4">Top Creators</h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {creators?.map((creator) => (
-            <UserCard key={creator?.$id} user={creator} />
-          ))}
+    <div className="flex justify-center bg-gray-100 min-h-screen m-0 p-0">
+      <div className="container mx-auto py-8 md:pl-8 md:pr-8 lg:pr-16 lg:pl-64">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="col-span-2">
+            <h2 className="text-2xl font-bold mb-4">Home Feed</h2>
+            {posts?.map((post, index) => (
+              <div key={post.$id} className={index !== 0 ? "mt-8" : ""}>
+                <PostCard post={post} bigSize={true} />
+              </div>
+            ))}
+          </div>
+          <div className="md:col-span-1 hidden md:block">
+            <h3 className="text-2xl font-bold mb-4">Top Creators</h3>
+            <div className="space-y-4">
+              {creators?.map((creator) => (
+                <div key={creator?.$id} className="mb-4">
+                  <UserCard user={creator} />
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </div>

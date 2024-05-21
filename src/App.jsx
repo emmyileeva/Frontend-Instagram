@@ -1,6 +1,5 @@
 import { Routes, Route } from "react-router-dom";
 import "./tailwind.css";
-import "../ src/globals.css";
 import Home from "./main/pages/Home";
 import SignIn from "./auth/SignIn";
 import SignUp from "./auth/SignUp";
@@ -17,6 +16,7 @@ import {
   UpdateProfile,
 } from "./main/pages";
 import Users from "./main/pages/Users";
+import "./globals.css";
 
 const App = () => {
   return (
