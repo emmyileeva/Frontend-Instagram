@@ -87,7 +87,7 @@ const Post = ({ post, action, headerText, iconSrc }) => {
           <form
             onSubmit={(e) => {
               e.preventDefault();
-              form.handleSubmit(handleSubmit)(e);
+              handleSubmit(form.getValues());
             }}
             className="flex flex-col gap-6 w-full max-w-2xl md:max-w-4xl p-4 md:p-8 mx-auto"
           >
