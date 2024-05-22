@@ -10,7 +10,11 @@ const UserCard = ({ user }) => {
 
   const handleFollowClick = (event) => {
     event.preventDefault();
-    followUser({ followerid: currentUser.id, followingid: user.$id });
+    if (currentUser.id !== user.$id) {
+      followUser({ followerId: currentUser.id, followingId: user.$id });
+    } else {
+      console.log("User cannot follow themselves");
+    }
   };
 
   return (
@@ -27,12 +31,16 @@ const UserCard = ({ user }) => {
           </p>
           <p className="text-gray-600 text-sm truncate">@{user.username}</p>
         </div>
-        <button
-          onClick={handleFollowClick}
-          className="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md text-sm hover:bg-blue-600 transition duration-300"
-        >
-          {isFollowing ? "Unfollow" : "Follow"}
-        </button>
+        {currentUser.id !== user.$id ? (
+          <button
+            onClick={handleFollowClick}
+            className="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md text-sm hover:bg-blue-600 transition duration-300"
+          >
+            {isFollowing ? "Unfollow" : "Follow"}
+          </button>
+        ) : (
+          <div className="mt-4 px-4 py-2 h-10"></div>
+        )}
       </div>
     </Link>
   );

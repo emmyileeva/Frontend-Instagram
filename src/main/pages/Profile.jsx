@@ -28,7 +28,7 @@ const Profile = () => {
   if (!currentUser) return null;
 
   const handleFollowClick = () => {
-    followUser({ followerid: user.id, followingid: id });
+    followUser({ followerId: user.id, followingId: id });
   };
 
   return (
