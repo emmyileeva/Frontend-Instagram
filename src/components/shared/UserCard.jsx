@@ -4,21 +4,21 @@ import PropTypes from "prop-types";
 const UserCard = ({ user }) => {
   return (
     <Link to={`/profile/${user.$id}`}>
-      <div className="bg-white rounded-lg shadow-md p-4 flex items-center hover:bg-gray-100 transition duration-300">
+      <div className="bg-white rounded-lg shadow-md p-4 flex flex-col items-center hover:bg-gray-100 transition duration-300">
         <img
           src={user.imageUrl || "/icons/profile.png"}
           alt="creator"
-          className="w-16 h-16 rounded-full object-cover"
+          className="w-24 h-24 rounded-full object-cover"
         />
-        <div className="ml-4">
-          <div>
-            <p className="font-bold text-lg text-gray-800">{user.name}</p>
-            <p className="text-gray-600 text-sm">@{user.username}</p>
-          </div>
-          <button className="mt-2 bg-blue-500 text-white px-3 py-1 rounded-md text-sm hover:bg-blue-600 transition duration-300">
-            Follow
-          </button>
+        <div className="mt-4 text-center">
+          <p className="font-bold text-lg text-gray-800 truncate">
+            {user.name}
+          </p>
+          <p className="text-gray-600 text-sm truncate">@{user.username}</p>
         </div>
+        <button className="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md text-sm hover:bg-blue-600 transition duration-300">
+          Follow
+        </button>
       </div>
     </Link>
   );

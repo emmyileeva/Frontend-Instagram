@@ -5,9 +5,8 @@ const GridPostList = ({ posts }) => {
   if (!posts) {
     return null;
   }
-
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
       {posts.map((post) => (
         <div key={post.$id} className="mb-4">
           <Link to={`/posts/${post.$id}`}>
