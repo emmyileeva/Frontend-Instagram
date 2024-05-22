@@ -47,7 +47,7 @@ Instagram Clone is a full-stack web application inspired by Instagram, allowing 
 
 ## Links
 
-- Visit the deployed site [here](link-to-deployed-site).
+- Visit the deployed site [here](https://instagram-ten-olive.vercel.app/sign-up).
 - Access the project's Trello board [here](https://trello.com/b/XpuHwdJ5/instagram-mern-stack).
 - View the Entity Relationship Diagram (ERD) [here](https://lucid.app/lucidchart/a6fc04e8-4f5d-42f0-98d8-6d4c0d3d3bab/edit?beaconFlowId=23408A01D8608450&invitationId=inv_bbf58c00-d5f8-4e25-9e6a-f4812c17c496&page=0_0#).
 - View the Component Hierarchy Diagram [here](https://lucid.app/lucidchart/1c6b8ee6-b632-4835-aab7-e48f105b70a9/edit?beaconFlowId=1B606789F058EA9B&invitationId=inv_5c978f88-e6af-45bf-a65d-a899126d4d6d&page=0_0).
