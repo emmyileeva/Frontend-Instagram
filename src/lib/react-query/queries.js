@@ -236,11 +236,9 @@ export function useFollowUser() {
 }
 
 export function useIsFollowing(followerid, followingid) {
-  return useQuery(
-    ["isFollowing", followerid, followingid],
-    () => isFollowing(followerid, followingid),
-    {
-      enabled: !!followerid && !!followingid,
-    }
-  );
+  return useQuery({
+    queryKey: ["isFollowing", followerid, followingid],
+    queryFn: () => isFollowing(followerid, followingid),
+    enabled: !!followerid && !!followingid,
+  });
 }
