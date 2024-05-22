@@ -67,9 +67,11 @@ const Profile = () => {
             )}
           </div>
         </div>
-        <div className="flex justify-center space-x-8 mb-8 items-baseline">
+        <div className="flex justify-center space-x-8 mb-8 items-end">
           <div className="text-center">
-            <p className="font-bold text-lg">{currentUser.posts.length}</p>
+            <div>
+              <p className="font-bold text-lg">{currentUser.posts.length}</p>
+            </div>
             <p className="text-gray-600">Posts</p>
           </div>
           <div className="text-center">

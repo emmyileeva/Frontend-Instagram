@@ -553,14 +553,14 @@ export async function updateUser(user) {
 }
 
 // create a follow relationship
-export async function followUser(followerId, followingId) {
+export async function followUser(followerId, followingIds) {
   try {
     const response = await databases.createDocument(
       appwrite.databaseId,
       appwrite.followsCollectionId,
       {
         followerId,
-        followingId,
+        followingIds,
       }
     );
     return response;
@@ -576,12 +576,15 @@ export async function isFollowing(followerId, followingId) {
     const response = await databases.listDocuments(
       appwrite.databaseId,
       appwrite.followsCollectionId,
-      [
-        Query.equal("followerId", followerId),
-        Query.equal("followingId", followingId),
-      ]
+      [Query.equal("followerId", followerId)]
     );
-    return response.sum > 0;
+
+    if (response.sum > 0) {
+      const followDocument = response.documents[0];
+      return followDocument.followingIds.includes(followingId);
+    }
+
+    return false;
   } catch (error) {
     console.error("Error checking follow status", error.message);
     console.error(error.stack);

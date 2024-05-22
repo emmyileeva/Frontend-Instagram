@@ -232,7 +232,10 @@ export const useUpdateUser = () => {
 };
 
 export function useFollowUser() {
-  return useMutation(followUser);
+  console.log(followUser);
+  return useMutation(({ followerId, followingIds }) =>
+    followUser(followerId, followingIds)
+  );
 }
 
 export function useIsFollowing(followerId, followingId) {

@@ -6,16 +6,34 @@ import { useFollowUser, useIsFollowing } from "@/lib/react-query/queries";
 const UserCard = ({ user }) => {
   const { user: currentUser } = useUserContext();
   const { mutate: followUser } = useFollowUser();
+  console.log(followUser);
+
   const { data: isFollowing } = useIsFollowing(currentUser.id, user.$id);
 
   const handleFollowClick = (event) => {
     event.preventDefault();
+    console.log("Follow button clicked");
     if (currentUser.id !== user.$id) {
-      followUser({ followerId: currentUser.id, followingId: user.$id });
+      console.log("Sending follow request...");
+      followUser(
+        { followerId: currentUser.id, followingIds: [user.$id] },
+        {
+          onSuccess: () => {
+            console.log("Follow request successful");
+          },
+          onError: (error) => {
+            console.error("Error sending follow request", error);
+          },
+        }
+      );
     } else {
       console.log("User cannot follow themselves");
     }
   };
+
+  console.log("currentUser.id:", currentUser.id);
+  console.log("user.$id:", user.$id);
+  console.log("isFollowing:", isFollowing);
 
   return (
     <Link to={`/profile/${user.$id}`}>
