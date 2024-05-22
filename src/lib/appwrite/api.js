@@ -551,3 +551,31 @@ export async function updateUser(user) {
     return null;
   }
 }
+
+// create a follow relationship
+export async function followUser(followerid, followingid) {
+  try {
+    const response = await appwrite.database.createDocument("follows", {
+      followerid,
+      followingid,
+    });
+    return response;
+  } catch (error) {
+    console.error("Error following user", error);
+    throw error;
+  }
+}
+
+// check if a user is following another user
+export async function isFollowing(followerid, followingid) {
+  try {
+    const response = await appwrite.database.listDocuments("follows", {
+      followerid: followerid,
+      followingid: followingid,
+    });
+    return response.sum > 0;
+  } catch (error) {
+    console.error("Error checking follow status", error);
+    throw error;
+  }
+}

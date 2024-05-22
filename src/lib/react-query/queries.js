@@ -23,6 +23,8 @@ import {
   getUserPosts,
   getUserById,
   updateUser,
+  followUser,
+  isFollowing,
 } from "@/lib/appwrite/api";
 
 const QUERY_KEYS = {
@@ -228,3 +230,17 @@ export const useUpdateUser = () => {
     },
   });
 };
+
+export function useFollowUser() {
+  return useMutation(followUser);
+}
+
+export function useIsFollowing(followerid, followingid) {
+  return useQuery(
+    ["isFollowing", followerid, followingid],
+    () => isFollowing(followerid, followingid),
+    {
+      enabled: !!followerid && !!followingid,
+    }
+  );
+}

@@ -55,8 +55,8 @@ Instagram Clone is a full-stack web application inspired by Instagram, allowing 
 ## Screenshots
 
 ![Desktop Homepage](./public/images/desktophomescreenshot.png)
-![Mobile Explore](./public/images/mobileexplorescreenshot.png)
 ![Desktop SignUp](./public/images/signupscreenshot.png)
+![Mobile Explore](./public/images/mobileexplorescreenshot.png)
 
 ## Future Updates
 
