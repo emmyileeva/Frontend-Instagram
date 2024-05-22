@@ -2,7 +2,7 @@
 
 ## Description
 
-Instagram Clone is a full-stack web application inspired by Instagram, allowing users to share photos and videos with their followers. Users can create accounts, upload posts, like and comment on posts, follow other users, and explore trending content.
+Instagram Clone is a full-stack web application inspired by Instagram, allowing users to share photos and videos with their followers. Users can create accounts, upload posts, like and save posts, follow other users, and explore trending content.
 
 ## Features
 
@@ -10,10 +10,7 @@ Instagram Clone is a full-stack web application inspired by Instagram, allowing 
 - Profile management: Edit profile details, change profile picture, and view other users' profiles.
 - Post creation: Upload photos and videos with captions, tags, and location information.
 - Interaction: Like and comment on posts, follow other users, and receive notifications for interactions.
-- Explore: Discover trending content, search for users and posts, and explore categories.
-- Messaging: Direct messaging functionality for private conversations between users.
 - Hashtags: Clickable hashtags to discover related content.
-- Dark Mode: Toggle between light and dark mode for different viewing preferences.
 - Responsive design: Enjoy a seamless user experience across devices of all sizes.
 
 ## Technologies
@@ -23,6 +20,7 @@ Instagram Clone is a full-stack web application inspired by Instagram, allowing 
   - React.js: A powerful JavaScript library for building interactive user interfaces.
   - React Router: Enables seamless navigation within the application.
   - React Query: Provides advanced caching and state management for efficient data fetching.
+  - JavaScript: The programming language used to build dynamic and interactive elements.
 
 - **Backend**:
 
@@ -56,13 +54,18 @@ Instagram Clone is a full-stack web application inspired by Instagram, allowing 
 
 ## Screenshots
 
-- Screenshots of final product here.
+![Desktop Homepage](./public/images/desktophomescreenshot.png)
+![Mobile Explore](./public/images/mobileexplorescreenshot.png)
+![Desktop SignUp](./public/images/signupscreenshot.png)
 
 ## Future Updates
 
 - Real-time notifications for interactions to enhance user engagement.
 - Advanced search functionality with filters and sorting options for discovering content.
 - Multimedia support in messaging features for richer communication experiences.
+- Dark Mode: Toggle between light and dark mode for different viewing preferences.
+- Messaging: Direct messaging functionality for private conversations between users.
+- Comments: Allow users to comment on posts to increase engagement and interaction.
 
 ## Credits
 
