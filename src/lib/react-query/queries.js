@@ -235,10 +235,10 @@ export function useFollowUser() {
   return useMutation(followUser);
 }
 
-export function useIsFollowing(followerid, followingid) {
+export function useIsFollowing(followerId, followingId) {
   return useQuery({
-    queryKey: ["isFollowing", followerid, followingid],
-    queryFn: () => isFollowing(followerid, followingid),
-    enabled: !!followerid && !!followingid,
+    queryKey: ["isFollowing", followerId, followingId],
+    queryFn: () => isFollowing(followerId, followingId),
+    enabled: !!followerId && !!followingId,
   });
 }

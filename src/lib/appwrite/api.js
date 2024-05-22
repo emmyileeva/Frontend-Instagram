@@ -553,12 +553,16 @@ export async function updateUser(user) {
 }
 
 // create a follow relationship
-export async function followUser(followerid, followingid) {
+export async function followUser(followerId, followingId) {
   try {
-    const response = await appwrite.database.createDocument("follows", {
-      followerid,
-      followingid,
-    });
+    const response = await databases.createDocument(
+      appwrite.databaseId,
+      appwrite.followsCollectionId,
+      {
+        followerId,
+        followingId,
+      }
+    );
     return response;
   } catch (error) {
     console.error("Error following user", error);
@@ -567,15 +571,20 @@ export async function followUser(followerid, followingid) {
 }
 
 // check if a user is following another user
-export async function isFollowing(followerid, followingid) {
+export async function isFollowing(followerId, followingId) {
   try {
-    const response = await appwrite.database.listDocuments("follows", {
-      followerid: followerid,
-      followingid: followingid,
-    });
+    const response = await databases.listDocuments(
+      appwrite.databaseId,
+      appwrite.followsCollectionId,
+      [
+        Query.equal("followerId", followerId),
+        Query.equal("followingId", followingId),
+      ]
+    );
     return response.sum > 0;
   } catch (error) {
-    console.error("Error checking follow status", error);
+    console.error("Error checking follow status", error.message);
+    console.error(error.stack);
     throw error;
   }
 }
