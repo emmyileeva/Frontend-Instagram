@@ -1,22 +1,28 @@
+import { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "../ui/button";
-import { INITIAL_USER, useUserContext } from "@/context/authcontext";
 import { useSignOutAccount } from "@/lib/react-query/queries";
+import { useUserContext } from "@/context/authcontext";
 
 const Top = () => {
   const navigate = useNavigate();
-  const { mutate: signOut } = useSignOutAccount();
-  const { user, setUser, setIsAuthenticated } = useUserContext();
+  const { user } = useUserContext();
+  const { mutate: signOut, isSuccess } = useSignOutAccount();
 
-  const handleSignOut = async (e) => {
-    e.preventDefault();
-    try {
-      await signOut();
-      setIsAuthenticated(false);
-      setUser(INITIAL_USER);
+  useEffect(() => {
+    if (isSuccess) {
+      console.log("Navigating to /sign-in");
       navigate("/sign-in");
-    } catch (error) {
-      console.error("Error signing out:", error);
+    }
+  }, [isSuccess, navigate]);
+
+  const handleSignOut = () => {
+    console.log("signOut called");
+    console.log("Current user:", user);
+    if (user) {
+      signOut();
+    } else {
+      console.log("User is already signed out");
     }
   };
 

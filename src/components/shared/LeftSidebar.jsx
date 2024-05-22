@@ -27,7 +27,7 @@ const LeftSidebar = () => {
         {user.email && (
           <Link
             to={`/profile/${user.id}`}
-            className="flex items-center gap-4 px-6 py-2 rounded-lg hover:bg-gray-100"
+            className="flex items-center gap-4 py-2 rounded-lg hover:bg-gray-100"
           >
             <img
               src={user.imageUrl || "/icons/profile.png"}
